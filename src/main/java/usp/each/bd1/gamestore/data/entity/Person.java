@@ -1,11 +1,11 @@
 package usp.each.bd1.gamestore.data.entity;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name="PESSOA")
-public class Person implements Serializable  {
+public class Person {
+    //TODO: Set cascade delete
     @Id
     @Column(name="CPF")
     private String cpf;
