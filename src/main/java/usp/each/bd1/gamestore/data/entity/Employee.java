@@ -12,7 +12,6 @@ public class Employee {
     private String managersCpf;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name="CPF")
     private String cpf;
 
