@@ -22,4 +22,8 @@ public class Customer implements Serializable {
 
     @OneToMany(mappedBy = "customer")
     private List<Assistance> assistances;
+
+    @OneToMany(mappedBy = "customer")
+    @PrimaryKeyJoinColumn
+    private List<Purchase> purchases;
 }
