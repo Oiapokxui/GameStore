@@ -7,5 +7,5 @@ docker run --rm --name pg-gamestore -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB
 sleep 3
 
 export PGPASSWORD=postgres
-psql -U postgres -d dev -h localhost -f schema.sql
-psql -U postgres -d dev -h localhost -f data.sql
+psql -U postgres -d dev -h localhost -f sql/schema.sql
+psql -U postgres -d dev -h localhost -f sql/data.sql
