@@ -15,6 +15,7 @@ public class EmployeesController {
 
     @GetMapping
     public Iterable<Employee> getEmployees() {
-        return this.employeeRepository.findAll();
+        var employees = this.employeeRepository.findAll();
+        return employees;
     }
 }
