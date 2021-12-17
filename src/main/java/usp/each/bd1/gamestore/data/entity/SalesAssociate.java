@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name="ATENDENTE")
-public class Attendant implements Serializable {
+public class SalesAssociate implements Serializable {
     @Id
     @Column(name="CPF")
     private String cpf;
