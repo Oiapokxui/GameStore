@@ -8,32 +8,41 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "CONSOLE")
-public class Console {
+@Table(name = "JOGOS_MIDIA_FISICA")
+public class VideoGame {
     @Id
     @Column(name = "CODIGO_DE_BARRAS")
     @Getter @Setter
     private String barcode;
 
-    @Column(name = "CATEGORIA")
+    @Column(name = "DESENVOLVEDOR")
     @Getter @Setter
     private String developer;
 
-    @Column(name = "GARANTIA")
+    @Column(name = "FRANQUIA")
     @Getter @Setter
     private String franchise;
 
-    @Column(name = "FABRICANTE")
+    @Column(name = "GENERO")
+    @Getter @Setter
+    private Date date;
+
+    @Column(name = "PUBLICADORA")
     @Getter @Setter
     private String publisher;
 
-    @ManyToOne
+    @Column(name = "PLATAFORMA")
+    @Getter @Setter
+    private String platform;
+
+    @OneToOne
     @MapsId
     @JoinColumn(name = "CODIGO_DE_BARRAS")
     private Item item;

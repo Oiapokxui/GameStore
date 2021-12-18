@@ -28,4 +28,16 @@ public class Item {
     @ManyToOne
     @JoinColumn(name = "NOME_ESTOQUE")
     private Storage storage;
+
+    @OneToOne(mappedBy = "item", cascade = CascadeType.REMOVE)
+    @PrimaryKeyJoinColumn
+    private VideoGame thisAsVideoGame;
+
+    @OneToOne(mappedBy = "item", cascade = CascadeType.REMOVE)
+    @PrimaryKeyJoinColumn
+    private VideoGameConsole thisAsVideoGameConsole;
+
+    @OneToOne(mappedBy = "item", cascade = CascadeType.REMOVE)
+    @PrimaryKeyJoinColumn
+    private Accessory thisAsAccessory;
 }
