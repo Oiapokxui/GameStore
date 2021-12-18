@@ -9,11 +9,6 @@ import lombok.Setter;
 @Table(name="FUNCIONARIO")
 public class Employee {
 
-    @ManyToOne
-    @JoinColumn(name="CPF_GERENTE")
-    @Getter @Setter
-    private Manager manager;
-
     @Id
     @Column(name="CPF")
     @Getter @Setter
@@ -31,21 +26,26 @@ public class Employee {
     @MapsId
     @JoinColumn(name = "CPF")
     @Getter @Setter
-    private Person person;
+    private Person thisPerson;
+
+    @ManyToOne
+    @JoinColumn(name="CPF_GERENTE")
+    @Getter @Setter
+    private Manager manager;
 
     @OneToOne(mappedBy = "thisEmployee", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
-    private Manager employeeAsManager;
+    private Manager thisAsManager;
 
     @OneToOne(mappedBy = "thisEmployee", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
-    private SalesAssociate employeeAsSalesAssociate;
+    private SalesAssociate thisAsSalesAssociate;
 
     @OneToOne(mappedBy = "thisEmployee", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
-    private Technician employeeAsTechnician;
+    private Technician thisAsTechnician;
 
     @OneToOne(mappedBy = "thisEmployee", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
-    private Cashier employeeAsCashier;
+    private Cashier thisAsCashier;
 }

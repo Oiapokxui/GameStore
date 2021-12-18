@@ -1,12 +1,8 @@
 package usp.each.bd1.gamestore.data.entity;
 
-import static org.hibernate.annotations.CascadeType.DELETE;
-
 import java.util.List;
 
 import javax.persistence.*;
-
-import org.hibernate.annotations.Cascade;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,11 +24,11 @@ public class Person {
     @Getter @Setter
     private String name;
 
-    @OneToOne(mappedBy = "person", cascade = CascadeType.REMOVE)
+    @OneToOne(mappedBy = "thisPerson", cascade = CascadeType.REMOVE)
     @PrimaryKeyJoinColumn
     private Employee personAsEmployee;
 
-    @OneToOne(mappedBy = "person", cascade = CascadeType.REMOVE)
+    @OneToOne(mappedBy = "thisPerson", cascade = CascadeType.REMOVE)
     @PrimaryKeyJoinColumn
     private Customer personAsCustomer;
 

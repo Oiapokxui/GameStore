@@ -23,7 +23,7 @@ public class Customer implements Serializable {
     @MapsId
     @JoinColumn(name = "CPF")
     @Getter @Setter
-    private Person person;
+    private Person thisPerson;
 
     @OneToMany(mappedBy = "buyer")
     @PrimaryKeyJoinColumn
