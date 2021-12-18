@@ -33,6 +33,7 @@ public class Person {
     private Customer personAsCustomer;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.REMOVE)
+    @Getter @Setter
     List<PersonTelephone> telephones;
 
 }
