@@ -28,7 +28,7 @@ public class Employee {
     @Column(name="SALARIO")
     @Getter @Setter
     @NonNull
-    private Long salary;
+    private Double salary;
 
     @OneToOne(cascade = CascadeType.MERGE)
     @MapsId
@@ -58,13 +58,13 @@ public class Employee {
     @PrimaryKeyJoinColumn
     private Cashier thisAsCashier;
 
-    public Employee(@NonNull final String cpf, @NonNull final String rg, @NonNull final Long salary) {
+    public Employee(@NonNull final String cpf, @NonNull final String rg, @NonNull final Double salary) {
         this.cpf = cpf;
         this.rg = rg;
         this.salary = salary;
     }
 
-    public Employee(@NonNull final String cpf, @NonNull final String rg, @NonNull final Long salary, @NonNull final Person thisPerson, final Manager manager) {
+    public Employee(@NonNull final String cpf, @NonNull final String rg, @NonNull final Double salary, @NonNull final Person thisPerson, final Manager manager) {
         this.cpf = cpf;
         this.rg = rg;
         this.salary = salary;
