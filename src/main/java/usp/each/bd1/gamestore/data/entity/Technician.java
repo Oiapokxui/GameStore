@@ -24,5 +24,5 @@ public class Technician implements Serializable {
     @MapsId
     @JoinColumn(name = "CPF")
     @Getter @Setter
-    private Employee employee;
+    private Employee thisEmployee;
 }

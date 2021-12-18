@@ -18,7 +18,7 @@ public class SalesAssociate implements Serializable {
     @MapsId
     @JoinColumn(name = "CPF")
     @Getter @Setter
-    private Employee employee;
+    private Employee thisEmployee;
 
     @OneToMany(mappedBy = "salesAssociate")
     @PrimaryKeyJoinColumn
