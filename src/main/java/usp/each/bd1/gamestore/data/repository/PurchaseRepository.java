@@ -11,6 +11,6 @@ import usp.each.bd1.gamestore.data.entity.PurchaseId;
 
 @Repository
 public interface PurchaseRepository extends CrudRepository<Purchase, PurchaseId> {
-    @Query(value="select * from aquisicao", nativeQuery = true)
+    @Query(value="select * from compra", nativeQuery = true)
     List<Purchase> findAll();
 }
