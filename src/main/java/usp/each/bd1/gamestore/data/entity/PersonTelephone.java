@@ -20,6 +20,5 @@ public class PersonTelephone {
 
     @ManyToOne
     @JoinColumn(name = "CPF")
-    @Getter @Setter
     private Person owner;
 }
