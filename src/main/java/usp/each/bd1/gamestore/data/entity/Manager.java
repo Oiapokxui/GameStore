@@ -5,13 +5,19 @@ import java.io.Serializable;
 import java.util.List;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name="GERENTE")
+@NoArgsConstructor
+@RequiredArgsConstructor
 public class Manager implements Serializable {
     @Id
     @Column(name="CPF")
+    @NonNull
     private String cpf;
 
     @OneToOne
@@ -27,4 +33,9 @@ public class Manager implements Serializable {
     @OneToMany(mappedBy = "manager")
     @PrimaryKeyJoinColumn
     private List<Employee> employeesManaged;
+
+    public Manager(@NonNull final String cpf, final Employee thisEmployee) {
+        this.cpf = cpf;
+        this.thisEmployee = thisEmployee;
+    }
 }
