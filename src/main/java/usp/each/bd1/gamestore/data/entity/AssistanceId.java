@@ -6,46 +6,24 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Embeddable
+@NoArgsConstructor
+@AllArgsConstructor
 public class AssistanceId implements Serializable {
     @Column(name = "CPF_ATENDENTE")
+    @Getter @Setter
     private String salesAssociateCpf;
     @Column(name = "CPF_CLIENTE")
+    @Getter @Setter
     private String customerCpf;
     @Column(name = "HORARIO_ATENDIMENTO")
+    @Getter @Setter
     private LocalDateTime timestamp = LocalDateTime.now();
-
-    public AssistanceId() {}
-
-    public AssistanceId(String clientCpf, String customerCpf, LocalDateTime timestamp) {
-        this.salesAssociateCpf = clientCpf;
-        this.customerCpf = customerCpf;
-        this.timestamp = timestamp;
-    }
-
-    public String getSalesAssociateCpf() {
-        return salesAssociateCpf;
-    }
-
-    public void setSalesAssociateCpf(String salesAssociateCpf) {
-        this.salesAssociateCpf = salesAssociateCpf;
-    }
-
-    public String getCustomerCpf() {
-        return customerCpf;
-    }
-
-    public void setCustomerCpf(String customerCpf) {
-        this.customerCpf = customerCpf;
-    }
-
-    public LocalDateTime getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(LocalDateTime timestamp) {
-        this.timestamp = timestamp;
-    }
 
     @Override
     public boolean equals(Object o) {

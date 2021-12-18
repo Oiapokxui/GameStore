@@ -4,6 +4,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table(name="ATENDENTE")
 public class SalesAssociate implements Serializable {
@@ -11,6 +14,13 @@ public class SalesAssociate implements Serializable {
     @Column(name="CPF")
     private String cpf;
 
-    @OneToMany(mappedBy="salesAssociate")
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "CPF")
+    @Getter @Setter
+    private Employee employee;
+
+    @OneToMany(mappedBy = "salesAssociate")
+    @PrimaryKeyJoinColumn
     private List<Assistance> assistances;
 }

@@ -4,54 +4,35 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table(name="FUNCIONARIO")
 public class Employee {
 
-    @Column(name="CPF_GERENTE")
-    private String managersCpf;
+    @ManyToOne
+    @JoinColumn(name="CPF_GERENTE")
+    @Getter @Setter
+    private Manager manager;
 
     @Id
     @Column(name="CPF")
+    @Getter @Setter
     private String cpf;
 
+    @Column(name="RG")
+    @Getter @Setter
+    private String rg;
+
     @Column(name="SALARIO")
+    @Getter @Setter
     private Long salary;
 
     @OneToOne
     @MapsId
     @JoinColumn(name = "CPF")
+    @Getter @Setter
     private Person person;
 
-    public String getManagersCpf() {
-        return managersCpf;
-    }
-
-    public void setManagersCpf(String managersCpf) {
-        this.managersCpf = managersCpf;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public Long getSalary() {
-        return salary;
-    }
-
-    public void setSalary(Long salary) {
-        this.salary = salary;
-    }
-
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
-    }
 }

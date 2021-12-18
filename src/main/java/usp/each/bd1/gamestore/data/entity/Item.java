@@ -2,24 +2,30 @@ package usp.each.bd1.gamestore.data.entity;
 
 import javax.persistence.*;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table(name = "PRODUTO")
 public class Item {
-    //TODO: Relate every product with its storage
     @Id
     @Column(name = "CODIGO_DE_BARRAS")
+    @Getter @Setter
     private String barcode;
 
-    @Column(name = "NOME_ESTOQUE")
-    private String storageName;
-
     @Column(name = "NOME")
+    @Getter @Setter
     private String name;
 
     @Column(name = "PRECO")
+    @Getter @Setter
     private double price;
 
     @ManyToOne
     @JoinColumn(name = "ID_COMPRA")
-    private Purchase purchase;
+    private Sale sale;
+
+    @ManyToOne
+    @JoinColumn(name = "NOME_ESTOQUE")
+    private Storage storage;
 }

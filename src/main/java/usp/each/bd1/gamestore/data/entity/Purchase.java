@@ -1,41 +1,49 @@
 package usp.each.bd1.gamestore.data.entity;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
-@Table(name = "COMPRA")
+@Table(name = "AQUISICAO")
 public class Purchase {
 
-    @Id
-    @Column(name="ID_COMPRA")
-    @GeneratedValue
-    private long purchaseId;
+    @EmbeddedId
+    private PurchaseId id;
 
-    @Column(name="HORA")
-    private LocalDateTime timestamp = LocalDateTime.now();
-
-    @Column(name="METODO_DE_PAGAMENTO")
-    private String paymentMethod;
-
-    @Column(name="VALOR_DE_COMPRA")
+    @Column(name="VALOR_A_PAGAR")
+    @Getter @Setter
     private double totalAmount;
 
-    @Column(name="DESCONTO_OBTIDO_POR_PONTOS")
-    private double discountUsingPoints;
-
-    @Column(name="PONTOS_A_ATRIBUIR")
-    private int attributedPoints;
+    @ManyToOne
+    @MapsId("managerCpf")
+    @JoinColumn(name="CPF_GERENTE")
+    @Getter @Setter
+    private Manager manager;
 
     @ManyToOne
-    @JoinColumn(name="CPF_CAIXA")
-    private Cashier cashier;
+    @MapsId("supplierCnpj")
+    @JoinColumn(name="CNPJ")
+    @Getter @Setter
+    private ItemSupplier itemSupplier;
 
-    @ManyToOne
-    @JoinColumn(name="CPF_CLIENTE")
-    private Customer customer;
-
-    @OneToMany(mappedBy = "purchase")
-    public List<Item> items;
+    @OneToOne
+    @MapsId("itemBarcode")
+    @JoinColumn(name = "CODIGO_DE_BARRAS")
+    @Getter @Setter
+    private Item item;
 }
