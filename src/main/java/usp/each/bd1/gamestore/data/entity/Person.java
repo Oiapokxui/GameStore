@@ -2,6 +2,8 @@ package usp.each.bd1.gamestore.data.entity;
 
 import static org.hibernate.annotations.CascadeType.DELETE;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 import org.hibernate.annotations.Cascade;
@@ -19,11 +21,22 @@ public class Person {
     //TODO: Set cascade delete
     @Id
     @Column(name="CPF")
-    @Cascade(DELETE)
     @Getter @Setter
     private String cpf;
 
     @Column(name="NOME")
     @Getter @Setter
     private String name;
+
+    @OneToOne(mappedBy = "person", cascade = CascadeType.REMOVE)
+    @PrimaryKeyJoinColumn
+    private Employee personAsEmployee;
+
+    @OneToOne(mappedBy = "person", cascade = CascadeType.REMOVE)
+    @PrimaryKeyJoinColumn
+    private Customer personAsCustomer;
+
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.REMOVE)
+    List<PersonTelephone> telephones;
+
 }

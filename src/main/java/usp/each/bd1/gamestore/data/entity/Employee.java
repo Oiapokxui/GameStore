@@ -1,8 +1,6 @@
 package usp.each.bd1.gamestore.data.entity;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Objects;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -35,4 +33,7 @@ public class Employee {
     @Getter @Setter
     private Person person;
 
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Manager employeeAsManager;
 }
