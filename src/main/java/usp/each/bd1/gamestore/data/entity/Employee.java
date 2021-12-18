@@ -33,7 +33,19 @@ public class Employee {
     @Getter @Setter
     private Person person;
 
-    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "thisEmployee", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private Manager employeeAsManager;
+
+    @OneToOne(mappedBy = "thisEmployee", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private SalesAssociate employeeAsSalesAssociate;
+
+    @OneToOne(mappedBy = "thisEmployee", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Technician employeeAsTechnician;
+
+    @OneToOne(mappedBy = "thisEmployee", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Cashier employeeAsCashier;
 }
