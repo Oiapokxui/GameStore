@@ -8,14 +8,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "COMPRA")
+@Table(name = "VENDA")
 public class Sale {
 
     @Id
-    @Column(name="ID_COMPRA")
+    @Column(name="ID")
     @GeneratedValue
     @Getter @Setter
-    private long purchaseId;
+    private long id;
 
     @Column(name="HORA")
     @Getter @Setter

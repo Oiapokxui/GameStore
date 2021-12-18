@@ -12,7 +12,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name="TELEFONE_FORNECEDOR")
-public class ItemSupplierTelephone {
+public class SupplierTelephone {
     @Id
     @Column(name="TELEFONE")
     @Getter @Setter
@@ -21,5 +21,5 @@ public class ItemSupplierTelephone {
     @ManyToOne
     @JoinColumn(name = "CNPJ")
     @Getter @Setter
-    private ItemSupplier owner;
+    private Supplier owner;
 }
