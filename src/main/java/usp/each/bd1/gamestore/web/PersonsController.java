@@ -1,5 +1,8 @@
 package usp.each.bd1.gamestore.web;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +23,13 @@ public class PersonsController {
     public Iterable<Person> getPersons() {
         var items = this.personRepository.findAll();
         return items;
+    }
+
+    @PostMapping
+    public void create(@RequestBody String body) {
+        final String cpf = body.split(",")[0];
+        final String name = body.split(",")[1];
+        personRepository.save(new Person(cpf, name));
     }
 
     @RequestMapping("/del")
