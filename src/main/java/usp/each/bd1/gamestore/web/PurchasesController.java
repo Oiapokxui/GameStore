@@ -5,9 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import usp.each.bd1.gamestore.data.entity.Item;
 import usp.each.bd1.gamestore.data.entity.Purchase;
-import usp.each.bd1.gamestore.data.repository.ItemRepository;
 import usp.each.bd1.gamestore.data.repository.PurchaseRepository;
 
 @RestController
