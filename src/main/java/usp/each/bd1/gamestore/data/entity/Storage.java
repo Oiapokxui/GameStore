@@ -10,10 +10,12 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "Estoque")
+@NoArgsConstructor
 public class Storage {
     @Id
     @Column(name = "NOME")
@@ -23,4 +25,8 @@ public class Storage {
     @OneToMany(mappedBy = "storage")
     @PrimaryKeyJoinColumn
     private List<Item> items;
+
+    public Storage(final String name) {
+        this.name = name;
+    }
 }
