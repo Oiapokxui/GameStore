@@ -21,15 +21,15 @@ public class Accessory {
 
     @Column(name = "CATEGORIA")
     @Getter @Setter
-    private String developer;
+    private String category;
 
     @Column(name = "GARANTIA")
     @Getter @Setter
-    private String franchise;
+    private String warranty;
 
     @Column(name = "FABRICANTE")
     @Getter @Setter
-    private String publisher;
+    private String manufacturer;
 
     @OneToOne
     @MapsId

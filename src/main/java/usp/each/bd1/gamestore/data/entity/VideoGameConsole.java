@@ -20,17 +20,17 @@ public class VideoGameConsole {
     @Getter @Setter
     private String barcode;
 
-    @Column(name = "CATEGORIA")
+    @Column(name = "FABRICANTE")
     @Getter @Setter
-    private String developer;
+    private String manufacturer;
 
     @Column(name = "GARANTIA")
     @Getter @Setter
-    private String franchise;
+    private String warranty;
 
-    @Column(name = "FABRICANTE")
+    @Column(name = "MARCA")
     @Getter @Setter
-    private String publisher;
+    private String brand;
 
     @OneToOne
     @MapsId

@@ -22,7 +22,7 @@ public class Item {
     private double price;
 
     @ManyToOne
-    @JoinColumn(name = "ID_COMPRA")
+    @JoinColumn(name = "ID_VENDA")
     private Sale sale;
 
     @ManyToOne

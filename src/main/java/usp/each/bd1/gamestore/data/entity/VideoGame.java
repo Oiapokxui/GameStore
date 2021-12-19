@@ -1,5 +1,6 @@
 package usp.each.bd1.gamestore.data.entity;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -31,6 +32,10 @@ public class VideoGame {
     private String franchise;
 
     @Column(name = "GENERO")
+    @Getter @Setter
+    private String genre;
+
+    @Column(name = "DATA_DE_LANCAMENTO")
     @Getter @Setter
     private Date date;
 
