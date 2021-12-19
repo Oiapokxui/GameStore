@@ -58,10 +58,11 @@ public class Employee {
     @PrimaryKeyJoinColumn
     private Cashier thisAsCashier;
 
-    public Employee(@NonNull final String cpf, @NonNull final String rg, @NonNull final Double salary) {
+    public Employee(@NonNull final String cpf, final String name, @NonNull final String rg, @NonNull final Double salary) {
         this.cpf = cpf;
         this.rg = rg;
         this.salary = salary;
+        this.thisPerson = new Person(cpf, name);
     }
 
     public Employee(@NonNull final String cpf, @NonNull final String rg, @NonNull final Double salary, @NonNull final Person thisPerson, final Manager manager) {
