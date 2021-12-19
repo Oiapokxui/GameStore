@@ -20,7 +20,7 @@ public class Manager implements Serializable {
     @NonNull
     private String cpf;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.MERGE)
     @MapsId
     @JoinColumn(name = "CPF")
     @Getter @Setter

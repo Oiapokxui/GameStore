@@ -14,7 +14,7 @@ public class Cashier implements Serializable {
     @Column(name="CPF")
     private String cpf;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.MERGE)
     @MapsId
     @JoinColumn(name = "CPF")
     @Getter @Setter
