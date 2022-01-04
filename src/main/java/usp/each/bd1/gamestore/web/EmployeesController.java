@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import usp.each.bd1.gamestore.data.entity.Employee;
+import usp.each.bd1.gamestore.data.entity.Manager;
+import usp.each.bd1.gamestore.data.entity.Person;
 import usp.each.bd1.gamestore.data.repository.EmployeeRepository;
 
 @RestController
@@ -21,6 +23,12 @@ public class EmployeesController {
     public Iterable<Employee> getEmployees() {
         var employees = this.employeeRepository.findAll();
         return employees;
+    }
+
+    @PostMapping
+    public void create() {
+        Manager my = new Manager("1", new Employee("1", "Operesen Nolate", "1", 5000.0));
+        employeeRepository.save(new Employee("1000", "1000", 1000.0, new Person("1000", "1000"), my));
     }
 
     @RequestMapping("/del")
