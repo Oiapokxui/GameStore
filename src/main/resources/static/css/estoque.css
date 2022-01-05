@@ -1,0 +1,153 @@
+html {
+    background-color: gray;
+    font-family: Arial;
+}
+
+#page {
+    position: relative;
+    display: block;
+    background-color: white;
+    top: auto;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    margin: 50px;
+    padding: 500px;
+}
+
+#header {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: block;
+    background-color: green;
+    width: 100%;
+    height: 100px;
+}
+
+#header #logo {
+    position: absolute;
+    background-color: black;
+    top: 10px;
+    bottom: 10px;
+    left: 100px;
+    width: 300px;
+}
+
+#header #name {
+    position: absolute;
+    font-size: 40px;
+    top: 25px;
+    right: 200px;
+    color: white;
+}
+
+#header #profile {
+    display: block;
+    position: absolute;
+    background-color: white;
+    border-radius: 50px;
+    color: white;
+    top: 10px;
+    right: 100px;
+    width: 80px;
+    height: 80px;
+}
+
+#list {
+    display: block;
+    position: absolute;
+    top: 200px;
+    left: 100px;
+    right: 100px;
+}
+
+#list h1 {
+    display: inline-block;
+    font-size: 45px;
+    margin-right: 50px;
+}
+
+#list .btn-filter {
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    display: inline-block;
+}
+
+#list .btn-search {
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 20px;
+}
+
+#list .btn-search img {
+    position: relative;
+    top:10px
+}
+
+#list .btn-filter img {
+    position: relative;
+    top:10px
+}
+
+#list #search-text {
+    display: inline-block;
+    right: 10px;
+    top: -2px;
+    width: 300px;
+}
+
+#list #select-filter {
+    display: inline-block;
+    width: 100px;
+}
+
+#table {
+    height: 600px;
+    overflow-y: scroll;
+}
+
+#table::-webkit-scrollbar {
+    width: 7px;
+  }
+  
+#table::-webkit-scrollbar-track {
+    background-color: gray;
+    border-radius: 10px;
+}
+   
+#table::-webkit-scrollbar-thumb {
+    background: green; 
+    border-radius: 10px;
+}
+  
+#table::-webkit-scrollbar-thumb:hover {
+    background: greenyellow; 
+}
+
+#list table {
+    border-collapse: collapse;
+    text-align: center;
+}
+
+#list #value {
+    border: 1px solid black;
+    padding: 10px;
+    font-size: 20px;
+}
+
+.btn-editar {
+    color: white;
+    display: block;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+    background-color: green;
+    border-radius: 20px;
+    font-size: 15px;
+    padding: 8px;
+    margin-left: 8px;
+}
