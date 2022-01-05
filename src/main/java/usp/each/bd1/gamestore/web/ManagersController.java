@@ -29,16 +29,16 @@ public class ManagersController {
 
     @RequestMapping("/search/any")
     @PostMapping
-    public Optional<Manager> searchByManager(@RequestParam("cpf") String cpf) throws Exception {
+    public Optional<Manager> searchAnyManager(@RequestParam("cpf") String cpf) throws Exception {
         var manager = managerRepository.findById(cpf);
         return manager;
     }
-
-    public boolean isManager(@RequestParam("cpf") String cpf) throws Exception {return searchByManager(cpf).isPresent();}
 
     @PostMapping
     public void create() {
         Manager my = new Manager("1003", new Employee("1003", "", "1003", 1.0));
         managerRepository.save(my);
     }
+
+    public boolean isManager(@RequestParam("cpf") String cpf) throws Exception {return searchAnyManager(cpf).isPresent();}
 }

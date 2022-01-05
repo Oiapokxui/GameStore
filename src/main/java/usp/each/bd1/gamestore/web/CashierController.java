@@ -22,7 +22,7 @@ public class CashierController {
     private CashierRepository cashierRepository;
 
     @GetMapping
-    public List<Cashier> getSalesAssociates() {
+    public List<Cashier> getCashiers() {
         var items = this.cashierRepository.findAll();
         return items;
     }
@@ -34,5 +34,5 @@ public class CashierController {
         return cashier;
     }
 
-    public boolean isSalesAssociate(@RequestParam("cpf") String cpf) throws Exception {return searchByCashier(cpf).isPresent();}
+    public boolean isCashier(@RequestParam("cpf") String cpf) throws Exception {return searchByCashier(cpf).isPresent();}
 }
