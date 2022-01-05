@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Estoque</title>
+        <link rel="stylesheet" type="text/css" href="css/estoque.css"/>
+    </head>
+    <body>
+        <div id="page">
+            <header>
+                <div id="header">
+                    <div id="logo">
+                        LOGO
+                    </div>
+                    <div id="name">
+                        Fulano Sobrenome
+                    </div>
+                        <img id="profile" src="_icons/profile.ico">
+                </div>
+                <div id="list">
+                    <header>
+                        <h1 id="title">Lista de estoque</h1>
+                        <button class="btn-filter"><img src="icons/filter.svg"></button>
+<!--                        <input list="filters" id="select-filter" name="select-filter" value="estoque1">-->
+                        <select id="filters" name="select-filter" >
+                            <option value="first" label="Selecione um estoque" onclick="reloadToNewStorage()"></option>
+                            <option th:each="storage: ${storages}" th:label="${storage.name}" onclick="reloadToNewStorage()"></option>
+                            <script src="js/redirect.js"></script>
+                        </select>
+                        <button class="btn-search"><img src="icons/search.svg"></button>
+                        <input type="search" placeholder="Search..." class="form-control search-input" data-table="tablee"/>
+                    </header>
+                    <div id="table">
+                        <table class="table table-striped mt32 tablee">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Preço</th>
+                                    <th>Código de Barras</th>
+                                </tr>
+                            </thead>
+                            <tr th:each="item: ${items}">
+                                <td th:text="${item.name}"></td>
+                                <td th:text="${item.price}"></td>
+                                <td th:text="${item.barcode}"></td>
+                                <td><button class="btn-editar">editar</button></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <script src="js/filter.js"></script>
+                </div>
+            </header>
+        </div>
+    </body>
+</html>
