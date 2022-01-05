@@ -39,7 +39,7 @@ public class HomepageWebController {
 
     @GetMapping("/estoque")
     public String estoque() {
-        return "estoque";
+        return "storage";
     }
 
     @GetMapping("/manager-home")
