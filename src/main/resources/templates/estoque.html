@@ -21,138 +21,146 @@
                     <header>
                         <h1 id="title">Lista de estoque</h1>
                         <button class="btn-filter"><img src="icons/filter.svg"></button>
-                        <input list="filters" id="select-filter" name="select-filter" value="estoque1">
-                        <datalist id="filters">
-                            <option value="estoque1"></option>
-                            <option value="estoque2"></option>
-                        </datalist>
+<!--                        <input list="filters" id="select-filter" name="select-filter" value="estoque1">-->
+                        <select id="filters" name="select-filter">
+                            <option value="estoque1">estoque1</option>
+                            <option value="estoque2">estoque2</option>
+                        </select>
                         <button class="btn-search"><img src="icons/search.svg"></button>
-                        <input id="search-text" name="search-text">
+                        <input type="search" placeholder="Search..." class="form-control search-input" data-table="tablee"/>
                     </header>
                     <div id="table">
-                        <table>
+                        <table class="table table-striped mt32 tablee">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Preço</th>
+                                    <th>Código de Barras</th>
+                                </tr>
+                            </thead>
                             <tr>
-                                <td id="value">Nome: Playstation3</td>
-                                <td id="value">Preço: 1700,00</td>
-                                <td id="value">Código de barras: 8391847120</td>
+                                <td id="value">Playstation3</td>
+                                <td id="value">1700,00</td>
+                                <td id="value">8391847120</td>
                                 <td><button class="btn-editar">editar</button></td>
                             </tr>
                             <tr>
-                                <td id="value">Nome: Playstation3</td>
-                                <td id="value">Preço: 1700,00</td>
-                                <td id="value">Código de barras: 8391847120</td>
+                                <td id="value">Playstation4</td>
+                                <td id="value">1700,00</td>
+                                <td id="value">8391847121</td>
                                 <td><button class="btn-editar">editar</button></td>
                             </tr>
                             <tr>
-                                <td id="value">Nome: Playstation3</td>
-                                <td id="value">Preço: 1700,00</td>
-                                <td id="value">Código de barras: 8391847120</td>
+                                <td id="value">Playstation5</td>
+                                <td id="value">1700,00</td>
+                                <td id="value">8391847122</td>
                                 <td><button class="btn-editar">editar</button></td>
                             </tr>
                             <tr>
-                                <td id="value">Nome: Playstation3</td>
-                                <td id="value">Preço: 1700,00</td>
-                                <td id="value">Código de barras: 8391847120</td>
+                                <td id="value">Playstation1</td>
+                                <td id="value">1700,00</td>
+                                <td id="value">8391847123</td>
                                 <td><button class="btn-editar">editar</button></td>
                             </tr>
                             <tr>
-                                <td id="value">Nome: Playstation3</td>
-                                <td id="value">Preço: 1700,00</td>
-                                <td id="value">Código de barras: 8391847120</td>
+                                <td id="value">Playstation2</td>
+                                <td id="value">1700,00</td>
+                                <td id="value">8391847124</td>
                                 <td><button class="btn-editar">editar</button></td>
                             </tr>
                             <tr>
-                                <td id="value">Nome: Playstation3</td>
-                                <td id="value">Preço: 1700,00</td>
-                                <td id="value">Código de barras: 8391847120</td>
+                                <td id="value">Playstation Series X</td>
+                                <td id="value">1700,00</td>
+                                <td id="value">8391847125</td>
                                 <td><button class="btn-editar">editar</button></td>
                             </tr>
                             <tr>
-                                <td id="value">Nome: Playstation3</td>
-                                <td id="value">Preço: 1700,00</td>
-                                <td id="value">Código de barras: 8391847120</td>
+                                <td id="value">Playstation3</td>
+                                <td id="value">1700,00</td>
+                                <td id="value">8391847126</td>
                                 <td><button class="btn-editar">editar</button></td>
                             </tr>
                             <tr>
-                                <td id="value">Nome: Playstation3</td>
-                                <td id="value">Preço: 1700,00</td>
-                                <td id="value">Código de barras: 8391847120</td>
+                                <td id="value">Playstation3</td>
+                                <td id="value">1700,00</td>
+                                <td id="value">8391847127</td>
                                 <td><button class="btn-editar">editar</button></td>
                             </tr>
                             <tr>
-                                <td id="value">Nome: Playstation3</td>
-                                <td id="value">Preço: 1700,00</td>
-                                <td id="value">Código de barras: 8391847120</td>
+                                <td id="value">Playstation3</td>
+                                <td id="value">1700,00</td>
+                                <td id="value">8391847128</td>
                                 <td><button class="btn-editar">editar</button></td>
                             </tr>
                             <tr>
-                                <td id="value">Nome: Playstation3</td>
-                                <td id="value">Preço: 1700,00</td>
-                                <td id="value">Código de barras: 8391847120</td>
+                                <td id="value">Playstation3</td>
+                                <td id="value">1700,00</td>
+                                <td id="value">8391847120</td>
                                 <td><button class="btn-editar">editar</button></td>
                             </tr>
                             <tr>
-                                <td id="value">Nome: Playstation3</td>
-                                <td id="value">Preço: 1700,00</td>
-                                <td id="value">Código de barras: 8391847120</td>
+                                <td id="value">Playstation3</td>
+                                <td id="value">1700,00</td>
+                                <td id="value">8391847120</td>
                                 <td><button class="btn-editar">editar</button></td>
                             </tr>
                             <tr>
-                                <td id="value">Nome: Playstation3</td>
-                                <td id="value">Preço: 1700,00</td>
-                                <td id="value">Código de barras: 8391847120</td>
+                                <td id="value">Playstation3</td>
+                                <td id="value">1700,00</td>
+                                <td id="value">8391847120</td>
                                 <td><button class="btn-editar">editar</button></td>
                             </tr>
                             <tr>
-                                <td id="value">Nome: Playstation3</td>
-                                <td id="value">Preço: 1700,00</td>
-                                <td id="value">Código de barras: 8391847120</td>
+                                <td id="value">Playstation3</td>
+                                <td id="value">1700,00</td>
+                                <td id="value">8391847120</td>
                                 <td><button class="btn-editar">editar</button></td>
                             </tr>
                             <tr>
-                                <td id="value">Nome: Playstation3</td>
-                                <td id="value">Preço: 1700,00</td>
-                                <td id="value">Código de barras: 8391847120</td>
+                                <td id="value">Playstation3</td>
+                                <td id="value">1700,00</td>
+                                <td id="value">8391847120</td>
                                 <td><button class="btn-editar">editar</button></td>
                             </tr>
                             <tr>
-                                <td id="value">Nome: Playstation3</td>
-                                <td id="value">Preço: 1700,00</td>
-                                <td id="value">Código de barras: 8391847120</td>
+                                <td id="value">Playstation3</td>
+                                <td id="value">1700,00</td>
+                                <td id="value">8391847120</td>
                                 <td><button class="btn-editar">editar</button></td>
                             </tr>
                             <tr>
-                                <td id="value">Nome: Playstation3</td>
-                                <td id="value">Preço: 1700,00</td>
-                                <td id="value">Código de barras: 8391847120</td>
+                                <td id="value">Playstation3</td>
+                                <td id="value">1700,00</td>
+                                <td id="value">8391847120</td>
                                 <td><button class="btn-editar">editar</button></td>
                             </tr>
                             <tr>
-                                <td id="value">Nome: Playstation3</td>
-                                <td id="value">Preço: 1700,00</td>
-                                <td id="value">Código de barras: 8391847120</td>
+                                <td id="value">Playstation3</td>
+                                <td id="value">1700,00</td>
+                                <td id="value">8391847120</td>
                                 <td><button class="btn-editar">editar</button></td>
                             </tr>
                             <tr>
-                                <td id="value">Nome: Playstation3</td>
-                                <td id="value">Preço: 1700,00</td>
-                                <td id="value">Código de barras: 8391847120</td>
+                                <td id="value">Playstation3</td>
+                                <td id="value">1700,00</td>
+                                <td id="value">8391847120</td>
                                 <td><button class="btn-editar">editar</button></td>
                             </tr>
                             <tr>
-                                <td id="value">Nome: Playstation3</td>
-                                <td id="value">Preço: 1700,00</td>
-                                <td id="value">Código de barras: 8391847120</td>
+                                <td id="value">Playstation3</td>
+                                <td id="value">1700,00</td>
+                                <td id="value">8391847120</td>
                                 <td><button class="btn-editar">editar</button></td>
                             </tr>
                             <tr>
-                                <td id="value">Nome: Playstation3</td>
-                                <td id="value">Preço: 1700,00</td>
-                                <td id="value">Código de barras: 8391847120</td>
+                                <td id="value">Playstation3</td>
+                                <td id="value">1700,00</td>
+                                <td id="value">8391847120</td>
                                 <td><button class="btn-editar">editar</button></td>
                             </tr>
                         </table>
                     </div>
+                    <script src="js/filter.js"></script>
                 </div>
             </header>
         </div>
