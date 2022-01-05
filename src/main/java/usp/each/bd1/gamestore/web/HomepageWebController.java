@@ -37,6 +37,11 @@ public class HomepageWebController {
        return "index";
     }
 
+    @GetMapping("/estoque")
+    public String estoque() {
+        return "estoque";
+    }
+
     @GetMapping("/manager-home")
     public String managerHome() {
         return "manager-home";
