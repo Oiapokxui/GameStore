@@ -18,16 +18,22 @@
             <div class="row">
                 <h1 id="title">Lista de estoque</h1>
 <!--                <button class="bi-funnel"><img src="icons/filter.svg"></button>-->
-                <button class="bi-funnel" onclick="reloadToNewStorage()"></button>
+
+                <div class="col-auto">
+                    <button class="bi-funnel" onclick="reloadToNewStorage()"></button>
+                </div>
 <!--                <i class="bi-funnel"></i>-->
-                <select id="filters" name="select-filter" >
-                    <option value="first" label="Selecione um estoque"></option>
-                    <option th:each="storage: ${storages}" th:label="${storage.name}" ></option>
-                    <script src="js/redirect.js"></script>
-                </select>
+                <div class="col-auto">
+                    <select id="filters" name="select-filter" >
+                        <option value="first" label="Selecione um estoque"></option>
+                        <option th:each="storage: ${storages}" th:label="${storage.name}" ></option>
+                        <script src="js/redirect.js"></script>
+                    </select>
+                </div>
 <!--                <button class="btn-search"><img src="icons/search.svg"></button>-->
-                <i class="bi-search"></i>
-                <input type="search" placeholder="Search..." class="form-control search-input" data-table="tablee"/>
+                <div class="col-auto">
+                    <input type="search" placeholder="Search..." class="form-control search-input" data-table="tablee"/>
+                <div>
                 <script src="js/filter.js"></script>
             </div>
             <div id="table">
@@ -39,11 +45,11 @@
                         <th>Código de Barras</th>
                     </tr>
                     </thead>
-                    <tr th:each="item: ${items}">
-                        <td th:text="${item.name}"></td>
-                        <td th:text="${item.price}"></td>
-                        <td th:text="${item.barcode}"></td>
-                        <td><button class="btn-editar">editar</button></td>
+                    <tr id="itemRow" th:each="item: ${items}">
+                        <td id= "name" th:text="${item.name}"></td>
+                        <td id= "price" th:text="${item.price}"></td>
+                        <td id= "barcode" th:text="${item.barcode}"></td>
+                        <td id= "button"><button class="btn-editar" onclick="editBarcode()">editar</button></td>
                     </tr>
                 </table>
             </div>
