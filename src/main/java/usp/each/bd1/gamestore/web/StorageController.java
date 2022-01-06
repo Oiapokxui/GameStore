@@ -22,8 +22,11 @@ public class StorageController {
     private StorageRepository storageRepository;
 
     @GetMapping
-    public String getStorages(@RequestParam(value = "storage", required = false) String storageName, Model model) {
-        var items = this.itemRepository.findByStorageName(Optional.ofNullable(storageName).orElse(""));
+    public String storagePage(@RequestParam(value = "storage", required = false) String storageName, Model model) {
+        var items = Optional.ofNullable(storageName)
+                .flatMap((name) -> Optional.of(this.itemRepository.findByStorageName(name)))
+                .orElse(this.itemRepository.findAll());
+
         var storages = this.storageRepository.findAll();
         model.addAttribute("items", items);
         model.addAttribute("storages", storages);
