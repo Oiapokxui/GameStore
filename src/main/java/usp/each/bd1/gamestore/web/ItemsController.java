@@ -44,13 +44,11 @@ public class ItemsController {
         return itemRepository.findById(barcode).orElse(null);
     }
 
-    @RequestMapping("/search/all/storage-json")
-    @PostMapping
     public Iterable<Item> getItemsFromStorageObj(@RequestBody final Storage storage) {
         return this.itemRepository.findItemByStorageEquals(storage);
     }
 
-    @RequestMapping("/search/all/storage-name")
+    @RequestMapping("/search/all/storageName")
     @PostMapping
     public Iterable<Item> getItemsFromStorage(@RequestBody final String storageName) {
         var items = this.itemRepository.findByStorageName(storageName);
