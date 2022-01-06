@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import usp.each.bd1.gamestore.data.entity.Item;
@@ -37,6 +38,12 @@ public class ItemsController {
         return getItemsByName(itemName).stream().findFirst().orElse(null);
     }
 
+    @RequestMapping("/search/any/barcode")
+    @PostMapping
+    public Item getAnyItemByBarcode(@RequestParam("barcode") String barcode) {
+        return itemRepository.findById(barcode).orElse(null);
+    }
+
     @RequestMapping("/search/all/storage-json")
     @PostMapping
     public Iterable<Item> getItemsFromStorageObj(@RequestBody final Storage storage) {
@@ -49,5 +56,4 @@ public class ItemsController {
         var items = this.itemRepository.findByStorageName(storageName);
         return items;
     }
-
 }
