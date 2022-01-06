@@ -45,4 +45,10 @@ public class HomepageWebController {
     public String cashierHome() {
         return "cashier-home";
     }
+
+    @RequestMapping("/sales")
+    @GetMapping
+    public String ble() {
+        return "sale";
+    }
 }
