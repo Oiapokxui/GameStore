@@ -20,7 +20,6 @@ public class HomepageWebController {
     @Autowired
     CashierController cashierController;
 
-
     @PostMapping
     @ResponseBody
     public String temp(@RequestParam("cpf") String cpf) throws Exception{
@@ -35,11 +34,6 @@ public class HomepageWebController {
     @GetMapping
     public String login() {
        return "index";
-    }
-
-    @GetMapping("/estoque")
-    public String estoque() {
-        return "storage";
     }
 
     @GetMapping("/manager-home")
