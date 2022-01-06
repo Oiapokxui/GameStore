@@ -158,3 +158,9 @@ border-radius: 20px;
    font-weight: normal;
    text-align: center;
 }
+
+#regButton {
+    color:#FFFFFF;
+    background-color: #3DCFB5;
+    border-color: #3DCFB5;
+}
