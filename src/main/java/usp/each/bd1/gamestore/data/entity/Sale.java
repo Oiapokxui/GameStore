@@ -1,21 +1,27 @@
 package usp.each.bd1.gamestore.data.entity;
 
 import javax.persistence.*;
+
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "VENDA")
+@NoArgsConstructor
 public class Sale {
 
     @Id
     @Column(name="ID")
     @GeneratedValue
     @Getter @Setter
-    private long id;
+    private BigInteger id;
 
     @Column(name="HORA")
     @Getter @Setter
@@ -47,4 +53,8 @@ public class Sale {
 
     @OneToMany(mappedBy = "sale")
     private List<Item> items;
+
+    public Sale(final BigInteger id) {
+        this.id = id;
+    }
 }

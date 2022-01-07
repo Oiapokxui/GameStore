@@ -20,10 +20,19 @@ public class ItemsController {
     @Autowired
     private ItemRepository itemRepository;
 
-    @GetMapping
+    @GetMapping("/all")
     public Iterable<Item> getItems() {
         var items = this.itemRepository.findAll();
         return items;
+    }
+
+    @PostMapping("/edit")
+    public void updateItem(@RequestBody Item item) {
+        var storage = this.itemRepository.getStorageByBarcode(item.getBarcode());
+        var sale = this.itemRepository.getSaleByBarcode(item.getBarcode());
+        item.setStorage(storage.orElse(null));
+        item.setSale(sale.orElse(null));
+        this.itemRepository.save(item);
     }
 
     @RequestMapping("/search/all")
