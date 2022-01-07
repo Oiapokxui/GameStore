@@ -31,7 +31,7 @@ public class ItemsController {
         var existingItem = this.itemRepository.findById(updatedItem.getBarcode()).orElse(updatedItem);
         existingItem.setName(updatedItem.getName());
         existingItem.setPrice(updatedItem.getPrice());
-        this.itemRepository.save(updatedItem);
+        this.itemRepository.save(existingItem);
         return "storages";
     }
 
