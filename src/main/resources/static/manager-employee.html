@@ -4,7 +4,7 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
-      <title>GameDB - Storage List</title>
+      <title>GameDB - Product search</title>
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
       <link rel="stylesheet" href="/css/styles.css">
@@ -18,7 +18,7 @@
 
       <div class ="mt-5">
          <div class ="mainBox text-center">
-            <h3>Lista de estoque</h3>
+            <h3>Consultar produto</h3>
             <section class="func-pannel padding-lg text-center mt-5">
                <div class="container">
                   <div class="row">
@@ -60,14 +60,18 @@
                                         <thead>
                                             <tr>
                                                 <th>Nome</th>
-                                                <th>Preço</th>
-                                                <th>Código de Barras</th>
+                                                <th>CPF</th>
+                                                <th>RG</th>
+                                                <th>Salario</th>
+                                                <th>ID</th>
                                             </tr>
                                         </thead>
-                                        <tr id="itemRow" th:each="item: ${items}">
-                                            <td id= "name" th:text="${item.name}"></td>
-                                            <td id= "price" th:text="${item.price}"></td>
-                                            <td id= "barcode" th:text="${item.barcode}"></td>
+                                        <tr id="itemRow" th:each="employee: ${employee}">
+                                            <td id= "name" th:text="${employee.name}"></td>
+                                            <td id= "cpf" th:text="${employee.cpf}"></td>
+                                            <td id= "rg" th:text="${employee.rg}"></td>
+                                            <td id= "salario" th:text="${employee.salario}"></td>
+                                            <td id= "id" th:text="${employee.id}"></td>
                                             <td id="editButton"><button id="tableEditBut" onclick="goToEditItemPage()">Editar</button></td>
                                             <td id="deleteButton"><button id="tableDelBut" onclick="deleteItem()">Deletar</button></td>
                                         </tr>
