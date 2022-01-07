@@ -28,12 +28,12 @@
                     <button class="bi-funnel" onclick="reloadToNewStorage()"></button>
                 </div>
                 <div class="col-auto">
-                    <input type="search" placeholder="Search..." class="form-control search-input" data-table="tablee"/>
-                <div>
+                    <input type="search" placeholder="Search..." class="form-control search-input" data-table="tablee">
+                </div>
                 <script src="/js/filter.js"></script>
             </div>
             <div id="table">
-                <table class="table table-striped mt32 tablee">
+                <table id="itemsTable" class="table table-striped mt32 tablee">
                     <thead>
                     <tr>
                         <th>Nome</th>
@@ -45,7 +45,8 @@
                         <td id= "name" th:text="${item.name}"></td>
                         <td id= "price" th:text="${item.price}"></td>
                         <td id= "barcode" th:text="${item.barcode}"></td>
-                        <td id= "button"><button class="btn-editar" onclick="editBarcode()">editar</button></td>
+                        <td id="editButton"><button class="btn-editar" onclick="goToEditItemPage()">editar</button></td>
+                        <td id= "deleteButton"><button class="btn-editar" onclick="deleteItem()">deletar</button></td>
                     </tr>
                 </table>
             </div>
