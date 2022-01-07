@@ -18,7 +18,8 @@ public class ItemsWebController {
     @GetMapping("/edit")
     public String getItems(@RequestParam("barcode") String barcode, Model model) {
         var item = this.itemRepository.findById(barcode);
-        model.addAttribute("item", item);
-        return (item.isPresent()) ? "items-edit" : null;
+        var returnTemplate = (item.isPresent()) ? "items-edit" : null;
+        model.addAttribute("item", item.orElse(null));
+        return returnTemplate;
     }
 }
