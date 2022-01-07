@@ -27,18 +27,24 @@ public class ItemsController {
     }
 
     @PostMapping("/edit")
-    public void updateItem(@RequestBody Item item) {
-        var storage = this.itemRepository.getStorageByBarcode(item.getBarcode());
-        var sale = this.itemRepository.getSaleByBarcode(item.getBarcode());
-        item.setStorage(storage.orElse(null));
-        item.setSale(sale.orElse(null));
-        this.itemRepository.save(item);
+    public String updateItem(@RequestBody Item updatedItem) {
+        var existingItem = this.itemRepository.findById(updatedItem.getBarcode()).orElse(updatedItem);
+        existingItem.setName(updatedItem.getName());
+        existingItem.setPrice(updatedItem.getPrice());
+        this.itemRepository.save(updatedItem);
+        return "storages";
+    }
+
+    @PostMapping("/delete")
+    public void deleteItem(@RequestParam("barcode") String barcode) {
+        var item = itemRepository.findById(barcode);
+        this.itemRepository.delete(item.orElse(new Item()));
     }
 
     @RequestMapping("/search/all")
     @PostMapping
     public List<Item> getItemsByName(@RequestBody final String itemName) {
-        return this.itemRepository.searchByName(itemName);
+        return this.itemRepository.findByName(itemName);
     }
 
     @RequestMapping("/search/any")

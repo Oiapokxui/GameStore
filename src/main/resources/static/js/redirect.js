@@ -21,8 +21,8 @@ async function reloadToNewStorage() {
     else window.location.assign("?storage=" + storageName);
 }
 
-async function getFieldValueFromRowOnButtonClick(fieldId) {
-    let cells = event.target.parentNode.parentNode.children;
+async function getFieldValueFromRow(row, fieldId) {
+    let cells = row.children;
     let fieldValue;
     Array.from(cells).forEach(
         (cell) => {
@@ -33,28 +33,55 @@ async function getFieldValueFromRowOnButtonClick(fieldId) {
     return fieldValue;
 }
 
-async function editBarcode(){
-    let barcode = await getFieldValueFromRowOnButtonClick("barcode");
+async function goToEditItemPage(){
+    let row = event.target.parentNode.parentNode;
+    let barcode = await getFieldValueFromRow(row, "barcode");
 
     window.location.assign("/items/edit?barcode=" + barcode);
 }
 
-async function postDataToServer(endpoint) {
+async function deleteItem(){
+    let row = event.target.parentNode.parentNode;
+    let form = await new FormData();
+    if(!confirm("Gostaria de deletar esse item?")) return;
+    form.append("barcode", await getFieldValueFromRow(row, "barcode"))
+
+    postFormDataToServer(form, "items/delete")
+        .then(
+        (resp) => window.location.reload(),
+        () => console.log("deu ruim e sinceramente não tenho tempo pra descobrir o porquê")
+    );
+}
+
+async function formDataToJson(form){
     let formJson = {}
-    Array.from(document.getElementById("data").children)
+    Array.from(form.children)
         .map(div => div.children[0])
-        .forEach(form => formJson[form.id] = form.value );
-    console.log(formJson);
-    fetch("/" + endpoint, {
+        .forEach(form => formJson[form.id] = form.value);
+    return formJson;
+}
+
+async function postJsonToServer(json, endpoint) {
+    return fetch("/" + endpoint, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formJson),
-    })
-        .then( resp => console.log(resp))
-        .then( () => {
-            history.back();
-            window.location.reload();
-        } );
+        body: JSON.stringify(json),
+    });
+}
+
+async function postFormDataToServer(form, endpoint) {
+    return fetch("/" + endpoint, {
+        method: 'POST',
+        body: form,
+    });
+}
+
+async function updateItemValues(){
+    let form = document.getElementById("data");
+    let formJson = await formDataToJson(form);
+    postJsonToServer(formJson, "items/edit")
+        .then( resp => resp.text())
+        .then( (endpoint) => window.location.assign('/' + endpoint));
 }
