@@ -16,37 +16,20 @@
     <div class ="mainBox">
         <form>
             <div class="form-floating">
-                <input type="text" class="form-control" id="floatingInput" placeholder="Lorem Ipsum">
-                <label for="floatingInput">Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Lorem Ipsum" th:value="${item.name}">
+                <label for="name">Nome</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="floatingInput" placeholder="XXXXXXXXX-XX">
-                <label for="floatingInput">CPF</label>
+                <input type="text" class="form-control" id="price" placeholder="XXXXXXXXX-XX" th:value="${item.price}">
+                <label for="price">Preço</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="floatingInput" placeholder="(DDD) XXXXX-XXXX">
-                <label for="floatingInput">Telephone Number</label>
-            </div>
-            <div class="form-floating">
-                <input type="text" class="form-control" id="floatingInput" placeholder="XXXXXXXX-X">
-                <label for="floatingInput">RG</label>
-            </div>
-            <div class="form-floating">
-                <input type="text" class="form-control" id="floatingInput" placeholder="Employee Income">
-                <label for="floatingInput">Income</label>
-            </div>
-            <div class="form-floating">
-                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                    <option selected>Gerente</option>
-                    <option value="1">Técnico de Manutenção</option>
-                    <option value="2">Caixa</option>
-                    <option value="3">Atendente</option>
-                </select>
-                <label for="floatingSelect">Select employee type</label>
+                <input type="text" class="form-control" id="barcode" placeholder="XXXXXXXX" th:value="${item.barcode}">
+                <label for="barcode">Código de Barras</label>
             </div>
         </form>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button id="delButton" type="button" class="btn btn-secondary btn-lg me-md-2">Delete</button>
+            <button id="delButton" type="button" class="btn btn-secondary btn-lg me-md-2">Cancel</button>
             <button id="regButton" type="button" class="btn btn-primary btn-lg">Register</button>
         </div>
     </div>
