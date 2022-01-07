@@ -38,3 +38,23 @@ async function editBarcode(){
 
     window.location.assign("/items/edit?barcode=" + barcode);
 }
+
+async function postDataToServer(endpoint) {
+    let formJson = {}
+    Array.from(document.getElementById("data").children)
+        .map(div => div.children[0])
+        .forEach(form => formJson[form.id] = form.value );
+    console.log(formJson);
+    fetch("/" + endpoint, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formJson),
+    })
+        .then( resp => console.log(resp))
+        .then( () => {
+            history.back();
+            window.location.reload();
+        } );
+}

@@ -23,10 +23,12 @@ public class Item {
 
     @ManyToOne
     @JoinColumn(name = "ID_VENDA")
+    @Setter
     private Sale sale;
 
     @ManyToOne
     @JoinColumn(name = "NOME_ESTOQUE")
+    @Setter
     private Storage storage;
 
     @OneToOne(mappedBy = "item", cascade = CascadeType.REMOVE)
