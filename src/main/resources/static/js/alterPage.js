@@ -1,4 +1,5 @@
 async function addNewItem() {
+    document.getElementById('error_msg').innerText = ""
     let barcode = document.getElementById("barcode").value;
     let form = new FormData();
     form.append('barcode', barcode);
