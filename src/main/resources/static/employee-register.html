@@ -11,29 +11,34 @@
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-<div class="recHeader"></div>
-<div class ="mt-5">
-    <div class ="mainBox">
-        <form id="data">
-            <div class="form-floating">
-                <input type="text" class="form-control" id="name" placeholder="Lorem Ipsum" th:value="${item.name}">
-                <label for="name">Nome</label>
+    <navbar class="recHeader">
+        <a href="index.html"><img src="icons/logo.svg" id="logoIcon"></a>
+        <h2 id="logWelcome">Bem-vindo</h2>
+        <img src="icons/avatar.svg" id="avatar">
+      </navbar>
+
+    <div class ="mt-5">
+        <div class ="mainBox">
+            <form id="data">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="name" placeholder="Lorem Ipsum" th:value="${item.name}">
+                    <label for="name">Nome</label>
+                </div>
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="price" placeholder="XXXXXXXXX-XX" th:value="${item.price}">
+                    <label for="price">Preço</label>
+                </div>
+                <div class="form-floating">
+                    <input readonly type="text" class="form-control" id="barcode" placeholder="XXXXXXXX" th:value="${item.barcode}">
+                    <label for="barcode">Código de Barras</label>
+                </div>
+            </form>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button id="delButton" type="button" class="btn btn-secondary btn-lg me-md-2" onclick="window.location.assign('/storages')">Cancel</button>
+                <button id="regButton" type="button" class="btn btn-primary btn-lg" onclick="updateItemValues()">Register</button>
             </div>
-            <div class="form-floating">
-                <input type="text" class="form-control" id="price" placeholder="XXXXXXXXX-XX" th:value="${item.price}">
-                <label for="price">Preço</label>
-            </div>
-            <div class="form-floating">
-                <input readonly type="text" class="form-control" id="barcode" placeholder="XXXXXXXX" th:value="${item.barcode}">
-                <label for="barcode">Código de Barras</label>
-            </div>
-        </form>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button id="delButton" type="button" class="btn btn-secondary btn-lg me-md-2" onclick="window.location.assign('/storages')">Cancel</button>
-            <button id="regButton" type="button" class="btn btn-primary btn-lg" onclick="updateItemValues()">Register</button>
         </div>
     </div>
-</div>
 
 <script src="http://localhost:8080/js/redirect.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
