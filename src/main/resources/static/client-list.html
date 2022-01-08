@@ -1,69 +1,69 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>GameDB - Lista de Funcionários</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/styles.css">
-</head>
-<body>
-<navbar class="recHeader">
-    <a href="index.html"><img src="icons/logo.svg" id="logoIcon"></a>
-    <h2 id="logWelcome">Bem-vindo</h2>
-    <img src="icons/avatar.svg" id="avatar">
-</navbar>
-<div class ="mt-5">
-        <section class="func-pannel padding-lg text-center mt-5">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>GameDB - Lista de Clientes</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/styles.css">
+   </head>
+   <body>
+      <navbar class="recHeader">
+         <a href="employee-home.html"><img src="icons/logo.svg" id="logoIcon"></a>
+         <h2 id="logWelcome">Bem-vindo</h2>
+         <img src="icons/avatar.svg" id="avatar">
+      </navbar>
+      <div class ="mt-5">
+         <section class="func-pannel padding-lg text-center mt-5">
             <div class="container">
-                <h3 class="mt-5">Lista de Clientes</h3>
-                <div class="row mt-5">
-                    <div class="col-md-12 col-md-push-1">
-                        <div class="container">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search...">
-                                <select class="form-select" id="filters" name="select-filter" >
-                                    <option value="first" label="Tipo de funcionário"></option>
-                                    <option th:each="employeeTypes: ${employeeTypes}" th:label="${employeeTypes}" ></option>
-                                    <script src="/js/redirect.js"></script>
-                                </select>
-                                <button type="button" onclick="reloadToNewStorage()" class="btn btn-outline-secondary">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
-                                        <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="justify-content-center text-center mt-5" id="table">
-                                <table id="itemsTable" class="table table-responsive table-striped mt32 tablee">
-                                    <thead>
-                                    <tr>
-                                        <th>Nome</th>
-                                        <th>CPF</th>
-                                        <th>RG</th>
-                                        <th>Telefone</th>
-                                    </tr>
-                                    </thead>
-                                    <tr id="itemRow" th:each="employee: ${employee}">
-                                        <td id= "name" th:text="${employee.name}"></td>
-                                        <td id= "cpf" th:text="${employee.cpf}"></td>
-                                        <td id= "rg" th:text="${employee.rg}"></td>
-                                        <td id= "salario" th:text="${employee.salario}"></td>
-                                        <td id="editButton"><button id="tableEditBut" onclick="goToEditItemPage()">Editar</button></td>
-                                        <td id="deleteButton"><button id="tableDelBut" onclick="deleteItem()">Deletar</button></td>
-                                    </tr>
-                                </table>
-                            </div>
+               <h3 class="mt-5">Lista de Clientes</h3>
+               <div class="row mt-5">
+                  <div class="col-md-12 col-md-push-1">
+                     <div class="container">
+                        <div class="input-group">
+                           <input type="text" class="form-control" placeholder="Search...">
+                           <select class="form-select" id="filters" name="select-filter" >
+                              <option value="first" label="Tipo de funcionário"></option>
+                              <option th:each="employeeTypes: ${employeeTypes}" th:label="${employeeTypes}" ></option>
+                              <script src="/js/redirect.js"></script>
+                           </select>
+                           <button type="button" onclick="reloadToNewStorage()" class="btn btn-outline-secondary">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
+                                 <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+                              </svg>
+                           </button>
                         </div>
-                    </div>
-                </div>
+                        <div class="justify-content-center text-center mt-5" id="table">
+                           <table id="itemsTable" class="table table-responsive table-striped mt32 tablee">
+                              <thead>
+                                 <tr>
+                                    <th>Nome</th>
+                                    <th>CPF</th>
+                                    <th>RG</th>
+                                    <th>Telefone</th>
+                                 </tr>
+                              </thead>
+                              <tr id="itemRow" th:each="employee: ${employee}">
+                                 <td id= "name" th:text="${employee.name}"></td>
+                                 <td id= "cpf" th:text="${employee.cpf}"></td>
+                                 <td id= "rg" th:text="${employee.rg}"></td>
+                                 <td id= "salario" th:text="${employee.salario}"></td>
+                                 <td id="editButton"><button id="tableEditBut" onclick="goToEditItemPage()">Editar</button></td>
+                                 <td id="deleteButton"><button id="tableDelBut" onclick="deleteItem()">Deletar</button></td>
+                              </tr>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+               </div>
             </div>
             <script src="/js/filter.js"></script>
-</div>
-</section>
-</div>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-</body>
+      </div>
+      </section>
+      </div>
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+   </body>
 </html>
