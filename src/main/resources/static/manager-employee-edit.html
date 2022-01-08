@@ -11,9 +11,15 @@
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body onload="selectEmployeeType()">
-<div class="recHeader"></div>
+<navbar class="recHeader">
+    <a href="/manager-home.html"><img src="/icons/logo.svg" id="logoIcon"></a>
+    <h2 id="logWelcome">Bem-vindo</h2>
+    <img src="/icons/avatar.svg" id="avatar">
+</navbar>
+
 <div class ="mt-5">
     <div class ="mainBox">
+        <h3 class="mt-5">Editar funcionário</h3>
         <form id="data">
             <div class="form-floating">
                 <input type="text" class="form-control" id="name" placeholder="Lorem Ipsum" th:value="${name}">
