@@ -36,6 +36,22 @@ async function getFieldValueFromRow(row, fieldId) {
     return fieldValue;
 }
 
+async function createStorage(){
+    let form = document.getElementById("data");
+    let jason = await formDataToJson(form);
+    let endpoint = "manager/storage";
+
+    postJsonToServer(jason, "storage/create")
+        .then( resp => resp.status)
+        .then(
+            (respStatus) => {
+                if (respStatus === 200) window.location.assign('/' + endpoint)
+                else window.confirm("Não foi possível adicionar o estoque.")
+            },
+            (err) => console.log("sadliest:error")
+        );
+}
+
 async function goToEditStoragePage(){
     let row = event.target.parentNode.parentNode;
     let barcode = await getFieldValueFromRow(row, "name");
