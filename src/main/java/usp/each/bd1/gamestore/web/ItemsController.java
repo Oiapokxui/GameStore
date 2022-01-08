@@ -10,15 +10,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import usp.each.bd1.gamestore.data.entity.Item;
 import usp.each.bd1.gamestore.data.entity.Storage;
 import usp.each.bd1.gamestore.data.repository.ItemRepository;
+import usp.each.bd1.gamestore.data.repository.StorageRepository;
 
 @RestController
 @RequestMapping("/items")
 public class ItemsController {
-    @Autowired
-    private ItemRepository itemRepository;
+    static class EditItemPayload {
+        Item item;
+        String storageName;
+
+        public EditItemPayload(final Item item, final String storageName) {
+            this.item = item;
+            this.storageName = storageName;
+        }
+    }
+
+    @Autowired private ItemRepository itemRepository;
+    @Autowired private StorageRepository storageRepository;
 
     @GetMapping("/all")
     public Iterable<Item> getItems() {
@@ -27,12 +40,15 @@ public class ItemsController {
     }
 
     @PostMapping("/edit")
-    public String updateItem(@RequestBody Item updatedItem) {
+    public String updateItem(@RequestBody EditItemPayload payload) throws JsonProcessingException{
+        var updatedItem = payload.item;
         var existingItem = this.itemRepository.findById(updatedItem.getBarcode()).orElse(updatedItem);
+        var updatedStorage = this.storageRepository.findById(payload.storageName);
         existingItem.setName(updatedItem.getName());
         existingItem.setPrice(updatedItem.getPrice());
+        existingItem.setStorage(updatedStorage.orElse(null));
         this.itemRepository.save(existingItem);
-        return "storages";
+        return "ok";
     }
 
     @PostMapping("/delete")

@@ -37,6 +37,11 @@ public interface ItemRepository extends CrudRepository<Item, String> {
 
     @Modifying
     @Transactional
+    @Query(value="update produto prod set nome_estoque=:new where prod.nome_estoque=:old", nativeQuery = true)
+    void updateStorageName(@Param("new") String newStorageName, @Param("old") String oldStorageName);
+
+    @Modifying
+    @Transactional
     @Query(value = "delete from produto prod where prod.codigo_de_barras=:barcode", nativeQuery = true)
     void deleteById(@Param("barcode") String barcode);
 

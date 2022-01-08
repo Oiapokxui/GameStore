@@ -11,14 +11,15 @@
 </head>
 <body>
 <navbar class="recHeader">
-    <a href="index.html"><img src="icons/logo.svg" id="logoIcon"></a>
-    <h2 id="logWelcome">Bem-vindo</h2>
-    <img src="icons/avatar.svg" id="avatar">
+   <a href="index.html"><img src="icons/logo.svg" id="logoIcon"></a>
+   <h2 id="logWelcome">Bem-vindo</h2>
+   <img src="icons/avatar.svg" id="avatar">
 </navbar>
+
 <div class ="mt-5">
         <section class="func-pannel padding-lg text-center mt-5">
             <div class="container">
-                <h3 class="mt-5">Lista de Clientes</h3>
+                <h3 class="mt-5">Lista de funcionários</h3>
                 <div class="row mt-5">
                     <div class="col-md-12 col-md-push-1">
                         <div class="container">
@@ -42,7 +43,7 @@
                                         <th>Nome</th>
                                         <th>CPF</th>
                                         <th>RG</th>
-                                        <th>Telefone</th>
+                                        <th>Salario</th>
                                     </tr>
                                     </thead>
                                     <tr id="itemRow" th:each="employee: ${employee}">
@@ -60,7 +61,6 @@
                 </div>
             </div>
             <script src="/js/filter.js"></script>
-</div>
 </section>
 </div>
 </div>

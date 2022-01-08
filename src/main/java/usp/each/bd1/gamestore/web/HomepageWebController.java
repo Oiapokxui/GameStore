@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/")
 public class HomepageWebController {
     @Autowired
-    ManagersController managersController;
+    ManagerController managerController;
 
     @Autowired
     CashierController cashierController;
@@ -24,7 +24,7 @@ public class HomepageWebController {
     @ResponseBody
     public String temp(@RequestParam("cpf") String cpf) throws Exception{
         try {
-            if (managersController.isManager(cpf)) return "manager-home";
+            if (managerController.isManager(cpf)) return "manager-home";
             if (cashierController.isCashier(cpf)) return "cashier-home";
         }
         catch(MissingServletRequestParameterException e) {}
@@ -43,7 +43,7 @@ public class HomepageWebController {
 
     @GetMapping("/cashier-home")
     public String cashierHome() {
-        return "cashier-home";
+        return "employee-home";
     }
 
     @RequestMapping("/sales")

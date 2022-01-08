@@ -17,14 +17,14 @@ public interface EmployeeRepository extends CrudRepository<Employee, String> {
     @Query(value="select * from FUNCIONARIO", nativeQuery = true)
     List<Employee> findAll();
 
-    @Query(value = "select * from funcionario where cpf = :cpf", nativeQuery = true)
+    @Query(value = "select * from funcionario where cpf=:cpf", nativeQuery = true)
     Optional<Employee> findById(@Param("cpf") String id);
 
-    @Query(value = "select * from funcionario where cpf_gerente = :cpf", nativeQuery = true)
+    @Query(value = "select * from funcionario where cpf_gerente=:cpf", nativeQuery = true)
     List<Employee> findByManagerCpf(@Param("cpf") String id);
 
     @Transactional
     @Modifying
-    @Query(value = "update funcionario set cpf_gerente = null where cpf_gerente = :cpf", nativeQuery = true)
+    @Query(value = "update funcionario set cpf_gerente = null where cpf_gerente=:cpf", nativeQuery = true)
     void updateManager(@Param("cpf") String id);
 }

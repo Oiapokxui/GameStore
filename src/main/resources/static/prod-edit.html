@@ -4,16 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>GameDB - Editar Produto</title>
+    <title>GameDB - Editar produto</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-<div class="recHeader"></div>
+    <navbar class="recHeader">
+        <a href="index.html"><img src="/icons/logo.svg" id="logoIcon"></a>
+        <h2 id="logWelcome">Bem-vindo</h2>
+        <img src="/icons/avatar.svg" id="avatar">
+      </navbar>
 <div class ="mt-5">
     <div class ="mainBox">
+        <h3>Editar produto</h3>
         <form id="data">
             <div class="form-floating">
                 <input type="text" class="form-control" id="name" placeholder="Lorem Ipsum" th:value="${item.name}">
@@ -28,14 +33,18 @@
                 <label for="barcode">Código de Barras</label>
             </div>
         </form>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button id="delButton" type="button" class="btn btn-secondary btn-lg me-md-2" onclick="window.location.assign('/storages')">Cancel</button>
-            <button id="regButton" type="button" class="btn btn-primary btn-lg" onclick="updateItemValues()">Register</button>
+        <select class="form-select" id="filters" name="select-filter" required>
+            <option value="first" label="">Selecione um estoque</option>
+            <option th:each="storage: ${storages}" th:label="${storage.name}" ></option>
+        </select>
+        <div class="d-grid gap-2 mt-5 d-md-flex justify-content-md-end">
+            <button id="delButton" type="button" class="btn btn-secondary btn-lg me-md-2" onclick="history.back()">Cancel</button>
+            <button id="regButton" type="button" class="btn btn-primary btn-lg" onclick="updateItem()">Register</button>
         </div>
     </div>
 </div>
 
-<script src="http://localhost:8080/js/redirect.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="/js/redirect.js"></script>
 </body>
 </html>

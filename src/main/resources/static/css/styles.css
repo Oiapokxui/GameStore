@@ -88,23 +88,23 @@
 }
 
 #logWelcome {
-text-align: center;
-display: flex;
-margin-left: auto;
-width: 350px;
-font-size: 32px;
-font-weight: 500;
-line-height: 32px;
-font-family: Roboto;
-font-style: normal;
-font-weight: normal;
-color: #FFFFFF;
+    text-align: right;
+    vertical-align: text-bottom;
+    /*display: inherit;*/
+    padding-right: 40px;
+    margin-left: auto;
+    width: 350px;
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 32px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    color: #FFFFFF;
 }
 
 #avatar {
-  text-align: center;
-  display: flex;
-  margin-left: 75%;
+    padding-right: 20px;
 }
 
 .form-control {
