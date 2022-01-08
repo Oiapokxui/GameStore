@@ -2,6 +2,8 @@ package usp.each.bd1.gamestore.data.entity;
 
 import javax.persistence.*;
 
+import org.springframework.context.annotation.Lazy;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -71,5 +73,13 @@ public class Employee {
         this.salary = salary;
         this.thisPerson = thisPerson;
         this.manager = manager;
+    }
+
+    public String getEmployeeType(){
+        if (this.thisAsManager != null) return "manager";
+        else if(this.thisAsCashier != null) return "cashier";
+        else if(this.thisAsTechnician != null) return "technician";
+        else if(this.thisAsSalesAssociate != null) return "salesAssociate";
+        else return "unassigned";
     }
 }

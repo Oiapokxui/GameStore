@@ -45,3 +45,9 @@ async function addItemToTable(itemsTable, item) {
     itemRow.append(barcode, name, price, buttonTd);
     itemsTable.append(itemRow);
 }
+
+async function selectEmployeeType(){
+    let type = document.getElementById("type").value;
+    let typeSelect = document.getElementById("employeeTypeSelect")
+    typeSelect.value = type;
+}
