@@ -30,6 +30,6 @@ public class StorageController {
         var storages = this.storageRepository.findAll();
         model.addAttribute("items", items);
         model.addAttribute("storages", storages);
-        return "storage";
+        return "manager-storage";
     }
 }
