@@ -43,6 +43,13 @@ async function goToEditStoragePage(){
     window.location.assign("/storage/edit?name=" + barcode);
 }
 
+async function goToEditEmployeePage(){
+    let row = event.target.parentNode.parentNode;
+    let barcode = await getFieldValueFromRow(row, "cpf");
+
+    window.location.assign("/employee/edit?cpf=" + barcode);
+}
+
 async function goToEditItemPage(){
     let row = event.target.parentNode.parentNode;
     let barcode = await getFieldValueFromRow(row, "barcode");
@@ -121,6 +128,40 @@ async function createStorage(){
                 else window.confirm("Não foi possível adicionar o estoque.")
             },
             (err) => console.log("sadliest:error")
+        );
+}
+
+async function updateEmployee(){
+    let form = document.getElementById("data");
+    let employeeJson = await formDataToJson(form);
+
+    let oldType = employeeJson["type"];
+    delete employeeJson["type"];
+
+    let newType = document.getElementById("employeeTypeSelect").value;
+
+    let managersCpf = employeeJson["managersCpf"]
+    delete employeeJson["managersCpf"];
+
+    let employeeName = employeeJson["name"];
+    delete employeeJson["name"];
+
+    let jason = {
+        "employee" : employeeJson,
+        "managersCpf" : managersCpf,
+        "type" : newType,
+        "name" : employeeName,
+    }
+    let endpoint = "manager/employee";
+
+    postJsonToServer(jason, "employee/edit")
+        .then( resp => resp.status)
+        .then(
+            (statusCode) => {
+                if (statusCode === 200) window.location.assign('/' + endpoint)
+                else window.confirm("Não foi possível editar esse funcionário.")
+            },
+            (err) => console.log("sadly:error")
         );
 }
 

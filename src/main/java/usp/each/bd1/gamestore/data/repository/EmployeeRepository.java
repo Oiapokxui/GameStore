@@ -26,5 +26,5 @@ public interface EmployeeRepository extends CrudRepository<Employee, String> {
     @Transactional
     @Modifying
     @Query(value = "update funcionario set cpf_gerente = null where cpf_gerente=:cpf", nativeQuery = true)
-    void updateManager(@Param("cpf") String id);
+    void unassignManager(@Param("cpf") String id);
 }

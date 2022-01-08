@@ -11,20 +11,20 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import usp.each.bd1.gamestore.data.entity.Cashier;
+import usp.each.bd1.gamestore.data.entity.Technician;
 
 @Repository
-public interface CashierRepository extends CrudRepository<Cashier, String> {
+public interface TechnicianRepository extends CrudRepository<Technician, String> {
     @Override
     @Query(value="select * from caixa", nativeQuery = true)
-    List<Cashier> findAll();
+    List<Technician> findAll();
 
     @Query(value = "select * from caixa cx where cx.cpf=:cpf", nativeQuery = true)
-    Optional<Cashier> findByCpf(@Param("cpf") String cpf);
+    Optional<Technician> findByCpf(@Param("cpf") String cpf);
 
     @Transactional
     @Modifying
-    @Query(value = "delete from caixa where cpf=:cpf", nativeQuery = true)
+    @Query(value = "delete from tecnico_de_manutencao where cpf=:cpf", nativeQuery = true)
     void deleteById(@Param("cpf") String id);
 
     @Transactional

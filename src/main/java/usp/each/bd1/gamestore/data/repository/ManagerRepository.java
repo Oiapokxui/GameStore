@@ -3,6 +3,9 @@ package usp.each.bd1.gamestore.data.repository;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -18,4 +21,9 @@ public interface ManagerRepository extends CrudRepository<Manager, String> {
 
     @Query(value = "select * from gerente ger where ger.cpf=:cpf", nativeQuery = true)
     Optional<Manager> findByCpf(@Param("cpf") String cpf);
+
+    @Transactional
+    @Modifying
+    @Query(value = "insert into funcionario values (:cpf)", nativeQuery=true)
+    void insert(@Param("cpf") String cpf);
 }
