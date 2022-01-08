@@ -36,11 +36,34 @@ async function getFieldValueFromRow(row, fieldId) {
     return fieldValue;
 }
 
+async function goToEditStoragePage(){
+    let row = event.target.parentNode.parentNode;
+    let barcode = await getFieldValueFromRow(row, "name");
+
+    window.location.assign("/storage/edit?name=" + barcode);
+}
+
 async function goToEditItemPage(){
     let row = event.target.parentNode.parentNode;
     let barcode = await getFieldValueFromRow(row, "barcode");
 
     window.location.assign("/items/edit?barcode=" + barcode);
+}
+
+async function deleteStorage(){
+    let row = event.target.parentNode.parentNode;
+    let form = await new FormData();
+    if(!confirm("Gostaria de deletar esse estoque?")) return;
+    form.append("name", await getFieldValueFromRow(row, "name"))
+
+    postFormDataToServer(form, "storage/delete")
+        .then(
+            (resp) => {
+                if(resp.status === 200) window.location.reload()
+                else window.confirm("Não é possível deletar um estoque não vazio.")
+            },
+            (err) => console.log(err)
+        );
 }
 
 async function deleteItem(){
@@ -51,8 +74,11 @@ async function deleteItem(){
 
     postFormDataToServer(form, "items/delete")
         .then(
-        (resp) => window.location.reload(),
-        () => console.log("deu ruim e sinceramente não tenho tempo pra descobrir o porquê")
+            (resp) => {
+                if(resp.status === 200) window.location.reload()
+                else window.confirm("Não é possível deletar um item que já foi comprado.")
+            },
+            (err) => console.log(err)
     );
 }
 
@@ -81,7 +107,37 @@ async function postFormDataToServer(form, endpoint) {
     });
 }
 
-async function updateItemValues(){
+
+async function createStorage(){
+    let form = document.getElementById("data");
+    let jason = await formDataToJson(form);
+    let endpoint = "manager/storage";
+
+    postJsonToServer(jason, "storage/create")
+        .then( resp => resp.status)
+        .then(
+            (respStatus) => {
+                if (respStatus === 200) window.location.assign('/' + endpoint)
+                else window.confirm("Não foi possível adicionar o estoque.")
+            },
+            (err) => console.log("sadliest:error")
+        );
+}
+
+async function updateStorage(){
+    let form = document.getElementById("data");
+    let jason = await formDataToJson(form);
+    let endpoint = "manager/storage";
+
+    postJsonToServer(jason, "storage/edit")
+        .then( resp => resp.text())
+        .then(
+            (okBody) => window.location.assign('/' + endpoint),
+            (err) => console.log("sadly:error")
+        );
+}
+
+async function updateItem(){
     let form = document.getElementById("data");
     let filterSelect = document.getElementById("filters");
     let storageName = await getSelectedValueFromFilter(filterSelect);
