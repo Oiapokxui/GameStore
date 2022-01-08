@@ -43,7 +43,7 @@ public class HomepageWebController {
 
     @GetMapping("/cashier-home")
     public String cashierHome() {
-        return "cashier-home";
+        return "employee-home";
     }
 
     @RequestMapping("/sales")
