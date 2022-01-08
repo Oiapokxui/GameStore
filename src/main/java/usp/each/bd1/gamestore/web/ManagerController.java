@@ -17,7 +17,7 @@ import usp.each.bd1.gamestore.data.repository.ManagerRepository;
 @RestController
 @RequestMapping("/managers")
 
-public class ManagersController {
+public class ManagerController {
     @Autowired
     private ManagerRepository managerRepository;
 
