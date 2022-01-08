@@ -12,30 +12,53 @@
 </head>
 <body>
     <navbar class="recHeader">
-        <a href="index.html"><img src="icons/logo.svg" id="logoIcon"></a>
+        <a href="/manager-home.html"><img src="icons/logo.svg" id="logoIcon"></a>
         <h2 id="logWelcome">Bem-vindo</h2>
         <img src="icons/avatar.svg" id="avatar">
       </navbar>
 
     <div class ="mt-5">
         <div class ="mainBox">
+            <h3 class="mt-5">Adicionar funcionário</h3>
             <form id="data">
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="name" placeholder="Lorem Ipsum" th:value="${item.name}">
-                    <label for="name">Nome</label>
+                    <input type="text" class="form-control" id="name" placeholder="Lorem Ipsum">
+                    <label for="name">Name</label>
                 </div>
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="price" placeholder="XXXXXXXXX-XX" th:value="${item.price}">
-                    <label for="price">Preço</label>
+                    <input type="text" class="form-control" id="cpf" placeholder="XXXXXXXXX-XX">
+                    <label for="cpf">CPF</label>
                 </div>
                 <div class="form-floating">
-                    <input readonly type="text" class="form-control" id="barcode" placeholder="XXXXXXXX" th:value="${item.barcode}">
-                    <label for="barcode">Código de Barras</label>
+                    <input type="text" class="form-control" id="managersCpf" placeholder="XXXXXXXXX-XX">
+                    <label for="managersCpf">CPF do Gerente</label>
+                </div>
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="rg" placeholder="XXXXXXXX-X">
+                    <label for="rg">RG</label>
+                </div>
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="salary" placeholder="Employee Salary">
+                    <label for="salary">Salário</label>
+                </div>
+                <div hidden class="form-floating">
+                    <input type="text" class="form-control" id="type" placeholder="Employee Type">
+                    <label for="type">Tipo de Funcionário</label>
                 </div>
             </form>
+            <div class="form-floating">
+                <select class="form-select" id="employeeTypeSelect" aria-label="Floating label select example">
+                    <option value="unassigned">Desalocado</option>
+                    <option value="manager">Gerente</option>
+                    <option value="technician">Técnico de Manutenção</option>
+                    <option value="cashier">Caixa</option>
+                    <option value="salesAssociate">Atendente</option>
+                </select>
+                <label for="employeeTypeSelect">Select employee type</label>
+            </div>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button id="delButton" type="button" class="btn btn-secondary btn-lg me-md-2" onclick="window.location.assign('/storages')">Cancel</button>
-                <button id="regButton" type="button" class="btn btn-primary btn-lg" onclick="updateItemValues()">Register</button>
+                <button id="delButton" type="button" class="btn btn-secondary btn-lg me-md-2" onclick="history.back()">Cancelar</button>
+                <button id="regButton" type="button" class="btn btn-primary btn-lg" onclick="updateEmployee()">Editar</button>
             </div>
         </div>
     </div>

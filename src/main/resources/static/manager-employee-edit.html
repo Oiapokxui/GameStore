@@ -11,9 +11,15 @@
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body onload="selectEmployeeType()">
-<div class="recHeader"></div>
+<navbar class="recHeader">
+    <a href="/manager-home.html"><img src="/icons/logo.svg" id="logoIcon"></a>
+    <h2 id="logWelcome">Bem-vindo</h2>
+    <img src="/icons/avatar.svg" id="avatar">
+</navbar>
+
 <div class ="mt-5">
     <div class ="mainBox">
+        <h3 class="mt-5">Editar funcionário</h3>
         <form id="data">
             <div class="form-floating">
                 <input type="text" class="form-control" id="name" placeholder="Lorem Ipsum" th:value="${name}">
@@ -24,16 +30,16 @@
                 <label for="cpf">CPF</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="cpf" placeholder="XXXXXXXXX-XX" th:value="${employeeManagerCPF}">
-                <label for="cpf">CPF do Gerente</label>
+                <input type="text" class="form-control" id="managersCpf" placeholder="XXXXXXXXX-XX" th:value="${employeeManagerCpf}">
+                <label for="managersCpf">CPF do Gerente</label>
             </div>
             <div class="form-floating">
                 <input type="text" class="form-control" id="rg" placeholder="XXXXXXXX-X" th:value="${employee.rg}">
                 <label for="rg">RG</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="income" placeholder="Employee Salary" th:value="${employee.salary}">
-                <label for="income">Income</label>
+                <input type="text" class="form-control" id="salary" placeholder="Employee Salary" th:value="${employee.salary}">
+                <label for="salary">Income</label>
             </div>
             <div hidden class="form-floating">
                 <input type="text" class="form-control" id="type" placeholder="Employee Type" th:value="${employeeType}">
@@ -51,13 +57,14 @@
             <label for="employeeTypeSelect">Select employee type</label>
         </div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button id="delButton" type="button" class="btn btn-secondary btn-lg me-md-2">Cancelar</button>
-            <button id="regButton" type="button" class="btn btn-primary btn-lg">Editar</button>
+            <button id="delButton" type="button" class="btn btn-secondary btn-lg me-md-2" onclick="history.back()">Cancelar</button>
+            <button id="regButton" type="button" class="btn btn-primary btn-lg" onclick="updateEmployee()">Editar</button>
         </div>
     </div>
 </div>
 
 <script src="/js/alterPage.js"></script>
+<script src="/js/redirect.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>
