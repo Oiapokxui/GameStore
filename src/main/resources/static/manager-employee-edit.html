@@ -22,8 +22,14 @@
         <h3 class="mt-5">Editar funcionário</h3>
         <form id="data">
             <div class="form-floating">
-                <input type="text" class="form-control" id="name" placeholder="Lorem Ipsum" th:value="${name}">
-                <label for="name">Name</label>
+               <select class="form-select" id="employeeTypeSelect" aria-label="Floating label select example">
+                  <option value="unassigned">Desalocado</option>
+                  <option value="manager">Gerente</option>
+                  <option value="technician">Técnico de Manutenção</option>
+                  <option value="cashier">Caixa</option>
+                  <option value="salesAssociate">Atendente</option>
+               </select>
+               <label for="employeeTypeSelect">Tipo do funcionário</label>
             </div>
             <div class="form-floating">
                 <input readonly type="text" class="form-control" id="cpf" placeholder="XXXXXXXXX-XX" th:value="${employee.cpf}">
