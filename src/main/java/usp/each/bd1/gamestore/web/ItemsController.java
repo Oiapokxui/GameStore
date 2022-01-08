@@ -40,7 +40,7 @@ public class ItemsController {
     }
 
     @PostMapping("/edit")
-    public String updateItem(@RequestBody EditItemPayload payload) throws JsonProcessingException{
+    public String updateItem(@RequestBody EditItemPayload payload){
         var updatedItem = payload.item;
         var existingItem = this.itemRepository.findById(updatedItem.getBarcode()).orElse(updatedItem);
         var updatedStorage = this.storageRepository.findById(payload.storageName);
