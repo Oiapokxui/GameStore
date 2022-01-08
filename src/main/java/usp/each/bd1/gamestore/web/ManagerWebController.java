@@ -13,15 +13,15 @@ import usp.each.bd1.gamestore.data.repository.ItemRepository;
 import usp.each.bd1.gamestore.data.repository.StorageRepository;
 
 @Controller
-@RequestMapping("/storages")
-public class StorageController {
+@RequestMapping("/manager")
+public class ManagerWebController {
     @Autowired
     private ItemRepository itemRepository;
 
     @Autowired
     private StorageRepository storageRepository;
 
-    @GetMapping
+    @GetMapping("/storage")
     public String storagePage(@RequestParam(value = "storage", required = false) String storageName, Model model) {
         var items = Optional.ofNullable(storageName)
                 .flatMap((name) -> Optional.of(this.itemRepository.findByStorageName(name)))

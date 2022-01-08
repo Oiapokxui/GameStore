@@ -12,12 +12,15 @@ async function submitForm() {
     if(resp.status !== 200) document.getElementById("error_msg").innerText = "Gerente ou Caixa de CPF " + cpf + " não encontrado";
     else window.location.assign("/" + body);
 }
+async function getSelectedValueFromFilter(filterSelect) {
+    let optionIndex = filterSelect.selectedIndex;
+    return filterSelect[optionIndex].label;
+}
 
 async function reloadToNewStorage() {
     let filterSelect = document.getElementById("filters");
-    let optionIndex = filterSelect.selectedIndex;
-    let storageName = filterSelect[optionIndex].label;
-    if (storageName === "Selecione um estoque") window.location.assign("/storages")
+    let storageName = await getSelectedValueFromFilter(filterSelect);
+    if (storageName === "Selecione um estoque") window.location.assign("/manager/storage")
     else window.location.assign("?storage=" + storageName);
 }
 
@@ -80,8 +83,18 @@ async function postFormDataToServer(form, endpoint) {
 
 async function updateItemValues(){
     let form = document.getElementById("data");
-    let formJson = await formDataToJson(form);
-    postJsonToServer(formJson, "items/edit")
+    let filterSelect = document.getElementById("filters");
+    let storageName = await getSelectedValueFromFilter(filterSelect);
+    let jason = {
+        'item': await formDataToJson(form),
+        'storageName' : storageName,
+    };
+    let endpoint = "manager/storage";
+
+    postJsonToServer(jason, "items/edit")
         .then( resp => resp.text())
-        .then( (endpoint) => window.location.assign('/' + endpoint));
+        .then(
+            (okBody) => window.location.assign('/' + endpoint),
+            (err) => console.log("sadly:error")
+        );
 }
