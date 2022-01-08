@@ -73,6 +73,31 @@ async function deleteStorage(){
         );
 }
 
+async function translateTypeToEnglish(type) {
+    if(type === "Gerente") return "manager";
+    else if(type === "Atendente") return "salesAssociate";
+    else if(type === "Técnico de Manutenção") return "technician";
+    else if(type === "Caixa") return "cashier";
+    else return "unassigned";
+}
+
+async function deleteEmployee(){
+    let row = event.target.parentNode.parentNode;
+    let form = await new FormData();
+    if(!confirm("Gostaria de deletar esse funcionário? \nIsso implica em diversas alterações nos dados, incluindo deleções.")) return;
+    form.append("cpf", await getFieldValueFromRow(row, "cpf"))
+    form.append("type", await translateTypeToEnglish(await getFieldValueFromRow(row, "type")))
+
+    postFormDataToServer(form, "employee/delete")
+        .then(
+            (resp) => {
+                if(resp.status === 200) window.location.reload()
+                else window.confirm("Não foi possível deletar o funcionário.")
+            },
+            (err) => console.log(err)
+        );
+}
+
 async function deleteItem(){
     let row = event.target.parentNode.parentNode;
     let form = await new FormData();
@@ -114,28 +139,10 @@ async function postFormDataToServer(form, endpoint) {
     });
 }
 
-
-async function createStorage(){
-    let form = document.getElementById("data");
-    let jason = await formDataToJson(form);
-    let endpoint = "manager/storage";
-
-    postJsonToServer(jason, "storage/create")
-        .then( resp => resp.status)
-        .then(
-            (respStatus) => {
-                if (respStatus === 200) window.location.assign('/' + endpoint)
-                else window.confirm("Não foi possível adicionar o estoque.")
-            },
-            (err) => console.log("sadliest:error")
-        );
-}
-
-async function updateEmployee(){
+async function employeeJsonFromPage() {
     let form = document.getElementById("data");
     let employeeJson = await formDataToJson(form);
 
-    let oldType = employeeJson["type"];
     delete employeeJson["type"];
 
     let newType = document.getElementById("employeeTypeSelect").value;
@@ -152,6 +159,11 @@ async function updateEmployee(){
         "type" : newType,
         "name" : employeeName,
     }
+    return jason;
+}
+
+async function updateEmployee(){
+    let jason = await employeeJsonFromPage();
     let endpoint = "manager/employee";
 
     postJsonToServer(jason, "employee/edit")

@@ -20,6 +20,6 @@ public interface RepairRepository extends CrudRepository<Repair, RepairId> {
 
     @Transactional
     @Modifying
-    @Query(value = "delete from conserta cons where cons.cpf_tecnico:cpf", nativeQuery = true)
+    @Query(value = "delete from conserta where conserta.cpf_tecnico=:cpf", nativeQuery = true)
     void deleteRepairs(@Param("cpf") String id);
 }

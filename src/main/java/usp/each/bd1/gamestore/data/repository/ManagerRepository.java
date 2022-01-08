@@ -24,6 +24,11 @@ public interface ManagerRepository extends CrudRepository<Manager, String> {
 
     @Transactional
     @Modifying
-    @Query(value = "insert into funcionario values (:cpf)", nativeQuery=true)
+    @Query(value = "insert into gerente values (:cpf)", nativeQuery=true)
     void insert(@Param("cpf") String cpf);
+
+    @Transactional
+    @Modifying
+    @Query(value = "delete from gerente where cpf=:cpf", nativeQuery=true)
+    void deleteById(@Param("cpf") String cpf);
 }

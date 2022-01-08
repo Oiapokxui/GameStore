@@ -3,10 +3,12 @@ package usp.each.bd1.gamestore.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import usp.each.bd1.gamestore.data.entity.Employee;
 import usp.each.bd1.gamestore.data.entity.Manager;
@@ -15,6 +17,7 @@ import usp.each.bd1.gamestore.data.repository.AssistanceRepository;
 import usp.each.bd1.gamestore.data.repository.CashierRepository;
 import usp.each.bd1.gamestore.data.repository.EmployeeRepository;
 import usp.each.bd1.gamestore.data.repository.ManagerRepository;
+import usp.each.bd1.gamestore.data.repository.PurchaseRepository;
 import usp.each.bd1.gamestore.data.repository.RepairRepository;
 import usp.each.bd1.gamestore.data.repository.SalesAssociateRepository;
 import usp.each.bd1.gamestore.data.repository.SalesRepository;
@@ -47,6 +50,9 @@ public class EmployeesController {
     private AssistanceRepository assistanceRepository;
 
     @Autowired
+    private PurchaseRepository purchaseRepository;
+
+    @Autowired
     private RepairRepository repairRepository;
 
     @Autowired
@@ -69,6 +75,7 @@ public class EmployeesController {
 
     private void unassignManager(String cpf) {
         this.employeeRepository.unassignManager(cpf);
+        this.purchaseRepository.deleteByManager(cpf);
         this.managerRepository.deleteById(cpf);
     }
 
@@ -86,7 +93,6 @@ public class EmployeesController {
         this.repairRepository.deleteRepairs(cpf);
         this.technicianRepository.deleteById(cpf);
     }
-
     private void unassignEmployee(String employeeCpf, String oldType) {
         if(oldType.equals("manager")) unassignManager(employeeCpf);
         else if(oldType.equals("salesAssociate")) unassignSalesAssociate(employeeCpf);
@@ -101,6 +107,13 @@ public class EmployeesController {
         else if(newType.equals("technician")) this.technicianRepository.insert(employeeCpf);
         else if(newType.equals("cashier")) this.cashierRepository.insert(employeeCpf);
     }
+
+    @PostMapping("/delete")
+    private void deleteEmployee(@RequestParam("cpf") String cpf, @RequestParam("type") String type){
+        if (!type.equals("unassigned")) unassignEmployee(cpf, type);
+        this.employeeRepository.deleteById(cpf);
+    }
+
 
     @PostMapping("/edit")
     public void updateEmployee(@RequestBody UpdateEmployeePayload payload) {
@@ -129,25 +142,5 @@ public class EmployeesController {
     public void create() {
         Manager my = new Manager("1", new Employee("1", "Operesen Nolate", "1", 5000.0));
         employeeRepository.save(new Employee("1000", "1000", 1000.0, new Person("1000", "1000"), my));
-    }
-
-    @RequestMapping("/del")
-    @PostMapping
-    public void delete(@RequestBody String id) {
-        this.employeeRepository.deleteById(id);
-    }
-
-    @RequestMapping("/rm-manager")
-    @PostMapping
-    public void removeManager(@RequestBody String id) {
-        this.employeeRepository.unassignManager(id);
-        this.employeeRepository.deleteById(id);
-    }
-
-    @RequestMapping("/search-by-manager")
-    @PostMapping
-    public List<Employee> searchByManager(@RequestBody String id) {
-        var employees = employeeRepository.findByManagerCpf(id);
-        return employees;
     }
 }
