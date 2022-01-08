@@ -20,7 +20,7 @@ async function getSelectedValueFromFilter(filterSelect) {
 async function reloadToNewStorage() {
     let filterSelect = document.getElementById("filters");
     let storageName = await getSelectedValueFromFilter(filterSelect);
-    if (storageName === "Selecione um estoque") window.location.assign("/manager/storage")
+    if (storageName === "Selecione um estoque") window.location.assign("/employee/item")
     else window.location.assign("?storage=" + storageName);
 }
 
@@ -54,7 +54,7 @@ async function goToEditItemPage(){
     let row = event.target.parentNode.parentNode;
     let barcode = await getFieldValueFromRow(row, "barcode");
 
-    window.location.assign("/items/edit?barcode=" + barcode);
+    window.location.assign("/item/page/edit?barcode=" + barcode);
 }
 
 async function deleteStorage(){

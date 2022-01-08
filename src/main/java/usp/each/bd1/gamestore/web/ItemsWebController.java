@@ -11,7 +11,7 @@ import usp.each.bd1.gamestore.data.repository.ItemRepository;
 import usp.each.bd1.gamestore.data.repository.StorageRepository;
 
 @Controller
-@RequestMapping("/items")
+@RequestMapping("/item/page")
 public class ItemsWebController {
     @Autowired
     private ItemRepository itemRepository;
@@ -25,6 +25,11 @@ public class ItemsWebController {
         var storages = this.storageRepository.findAll();
         model.addAttribute("item", item.orElse(null));
         model.addAttribute("storages", storages);
-        return (item.isPresent()) ? "prod-edit" : null;
+        return (item.isPresent()) ? "employee-item-edit" : null;
+    }
+
+    @GetMapping("/register")
+    public String getRegisterItemPage() {
+        return "employee-item-register";
     }
 }

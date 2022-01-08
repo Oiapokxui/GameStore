@@ -42,4 +42,11 @@ public class Item {
     @OneToOne(mappedBy = "item", cascade = CascadeType.REMOVE)
     @PrimaryKeyJoinColumn
     private Accessory thisAsAccessory;
+
+    public String getItemType() {
+        if (thisAsAccessory != null) return "accessory";
+        else if(thisAsVideoGame != null) return "videoGame";
+        else if(thisAsVideoGameConsole != null) return "console";
+        else return "unassigned";
+    }
 }

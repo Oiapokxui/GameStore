@@ -24,8 +24,8 @@ public class HomepageWebController {
     @ResponseBody
     public String temp(@RequestParam("cpf") String cpf) throws Exception{
         try {
-            if (managerController.isManager(cpf)) return "manager-home";
-            if (cashierController.isCashier(cpf)) return "cashier-home";
+            if (managerController.isManager(cpf)) return managerHome();
+            if (cashierController.isCashier(cpf)) return cashierHome();
         }
         catch(MissingServletRequestParameterException e) {}
         throw new NoSuchElementException("No cashier or manager found with " + cpf + " as cpf string");
@@ -41,7 +41,7 @@ public class HomepageWebController {
         return "manager-home";
     }
 
-    @GetMapping("/cashier-home")
+    @GetMapping("/employee-home")
     public String cashierHome() {
         return "employee-home";
     }

@@ -16,7 +16,7 @@ import usp.each.bd1.gamestore.data.repository.ItemRepository;
 import usp.each.bd1.gamestore.data.repository.StorageRepository;
 
 @RestController
-@RequestMapping("/items")
+@RequestMapping("/item")
 public class ItemsController {
     static class EditItemPayload {
         Item item;
