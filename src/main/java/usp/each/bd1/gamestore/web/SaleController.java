@@ -68,5 +68,6 @@ public class SaleController {
         saleRepository.save(sale);
         sale.getId();
         itemRepository.updateSaleId(sale.getId(), payload.barcodes);
+        customer.setFidelityPoints(payload.points);
     }
 }

@@ -1,11 +1,15 @@
 package usp.each.bd1.gamestore.data.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -27,4 +31,9 @@ public class RepairItem {
     @Column(name = "DESCRICAO")
     @Getter @Setter
     private String description;
+
+    @OneToMany(mappedBy = "repairItem", cascade = CascadeType.MERGE)
+    @PrimaryKeyJoinColumn
+    private List<Repair> repairings;
+
 }

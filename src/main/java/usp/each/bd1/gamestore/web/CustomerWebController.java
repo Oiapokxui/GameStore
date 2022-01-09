@@ -2,7 +2,6 @@ package usp.each.bd1.gamestore.web;
 
 import java.math.BigInteger;
 import java.util.Optional;
-import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,14 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.Getter;
 import usp.each.bd1.gamestore.data.entity.Item;
-import usp.each.bd1.gamestore.data.repository.CustommerRepository;
-import usp.each.bd1.gamestore.data.repository.EmployeeRepository;
-import usp.each.bd1.gamestore.data.repository.ItemRepository;
+import usp.each.bd1.gamestore.data.repository.CustomerRepository;
 import usp.each.bd1.gamestore.data.repository.StorageRepository;
 
 @Controller
-@RequestMapping("/custommer")
-public class CustommerWebController {
+@RequestMapping("/customer")
+public class CustomerWebController {
 
     static class ItemData {
         @Getter
@@ -40,23 +37,14 @@ public class CustommerWebController {
     }
 
     @Autowired
-    private CustommerRepository custommerRepository;
+    private CustomerRepository customerRepository;
 
     @Autowired
     private StorageRepository storageRepository;
 
     @GetMapping("/edit")
-    public String getEmployeeEditPage(@RequestParam(value = "cpf") String cpf, Model model) {
-        var items = this.employeeRepository.findById(cpf);
-        assert items.isPresent();
-        var manager = Optional.ofNullable(items.get().getManager());
-        var managerCpf = manager.map(value -> value.getThisEmployee().getCpf()).orElse("");
-
-        model.addAttribute("name", items.get().getThisPerson().getName());
-        model.addAttribute("employee", items.get());
-        model.addAttribute("employeeManagerCpf", managerCpf);
-        model.addAttribute("employeeType", items.get().getEmployeeType());
-        return "manager-employee-edit";
+    public String getCustomerEditPage(@RequestParam(value = "cpf") String cpf, Model model) {
+        return "client-register";
     }
 
     @GetMapping("/register")
@@ -72,9 +60,4 @@ public class CustommerWebController {
             default -> "Desalocado";
         };
     }
-
-   @GetMapping("reg-sale")
-   public String getSaleRegisterPage() {
-        return "employee-sale-register";
-   }
 }

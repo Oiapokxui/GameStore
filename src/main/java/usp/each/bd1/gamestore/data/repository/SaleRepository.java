@@ -26,4 +26,9 @@ public interface SaleRepository extends CrudRepository<Sale, BigInteger> {
     @Modifying
     @Query(value = "update venda set cpf_caixa = null where cpf_caixa=:cpf", nativeQuery = true)
     void unassignCashier(@Param("cpf") String id);
+
+    @Transactional
+    @Modifying
+    @Query(value = "delete from venda where cpf_caixa=:cpf", nativeQuery = true)
+    void deleteByCashier(@Param("cpf") String id);
 }

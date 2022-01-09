@@ -11,9 +11,9 @@
    </head>
    <body>
       <navbar class="recHeader">
-         <a href="employee-home.html"><img src="icons/logo.svg" id="logoIcon"></a>
+         <a href="employee-home.html"><img src="/icons/logo.svg" id="logoIcon"></a>
          <h2 id="logWelcome">Bem-vindo</h2>
-         <img src="icons/avatar.svg" id="avatar">
+         <img src="/icons/avatar.svg" id="avatar">
       </navbar>
       <div class ="mt-5">
          <section class="func-pannel padding-lg text-center mt-5">
@@ -36,13 +36,13 @@
                                  <tr>
                                     <th>Nome</th>
                                     <th>CPF</th>
+                                    <th>Pontos de Fidelidade</th>
                                  </tr>
                               </thead>
-                              <tr id="itemRow" th:each="employee: ${employee}">
-                                 <td id= "name" th:text="${employee.name}"></td>
-                                 <td id= "cpf" th:text="${employee.cpf}"></td>
-                                 <td id= "rg" th:text="${employee.rg}"></td>
-                                 <td id= "salario" th:text="${employee.salario}"></td>
+                              <tr id="itemRow" th:each="customerData: ${customerDatas}">
+                                 <td id= "name" th:text="${customerData.name}"></td>
+                                 <td id= "cpf" th:text="${customerData.customer.cpf}"></td>
+                                 <td id= "points" th:text="${customerData.customer.fidelityPoints}"></td>
                                  <td id="editButton"><button class="tableEditBut" onclick="goToEditItemPage()">Editar</button></td>
                                  <td id="deleteButton"><button class="tableDelBut" onclick="deleteItem()">Deletar</button></td>
                               </tr>
@@ -53,7 +53,7 @@
                </div>
             </div>
             <script src="/js/filter.js"></script>
-      </div>
+            <script src="/js/filter.js"></script>
       </section>
       </div>
       </div>

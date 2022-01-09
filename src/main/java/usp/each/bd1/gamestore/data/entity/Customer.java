@@ -5,10 +5,15 @@ import java.io.Serializable;
 import java.util.List;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name="CLIENTE")
+@NoArgsConstructor
+@RequiredArgsConstructor
 public class Customer implements Serializable {
     @Id
     @Column(name="CPF")
@@ -17,6 +22,7 @@ public class Customer implements Serializable {
 
     @Column(name="PONTOS_DE_FIDELIDADE")
     @Getter @Setter
+    @NonNull
     private int fidelityPoints;
 
     @OneToOne
@@ -25,7 +31,24 @@ public class Customer implements Serializable {
     @Getter @Setter
     private Person thisPerson;
 
-    @OneToMany(mappedBy = "buyer")
+    @OneToMany(mappedBy = "buyer", cascade = CascadeType.MERGE)
     @PrimaryKeyJoinColumn
     private List<Sale> purchases;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.MERGE)
+    @PrimaryKeyJoinColumn
+    private List<Assistance> assistances;
+
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.MERGE)
+    @PrimaryKeyJoinColumn
+    private List<RepairItem> repairItems;
+
+    public Customer(final String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getName() {
+        return thisPerson.getName();
+    }
+
 }

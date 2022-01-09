@@ -75,7 +75,7 @@ public class EmployeeController {
     }
 
     private void unassignCashier(String cpf) {
-        this.saleRepository.unassignCashier(cpf);
+        this.saleRepository.deleteByCashier(cpf);
         this.cashierRepository.deleteById(cpf);
     }
 
@@ -88,6 +88,7 @@ public class EmployeeController {
         this.repairRepository.deleteRepairs(cpf);
         this.technicianRepository.deleteById(cpf);
     }
+
     private void unassignEmployee(String employeeCpf, String oldType) {
         switch(oldType) {
             case "manager" -> unassignManager(employeeCpf);

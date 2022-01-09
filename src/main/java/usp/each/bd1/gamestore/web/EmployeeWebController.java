@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.Getter;
+import usp.each.bd1.gamestore.data.entity.Customer;
 import usp.each.bd1.gamestore.data.entity.Item;
+import usp.each.bd1.gamestore.data.repository.CustomerRepository;
 import usp.each.bd1.gamestore.data.repository.EmployeeRepository;
 import usp.each.bd1.gamestore.data.repository.ItemRepository;
 import usp.each.bd1.gamestore.data.repository.StorageRepository;
@@ -31,8 +33,22 @@ public class EmployeeWebController {
         }
     }
 
+    static class CustomerData {
+        @Getter Customer customer;
+        @Getter String name;
+
+        public CustomerData(final Customer customer) {
+            this.customer = customer;
+            this.name = customer.getName();
+        }
+    }
+
+
     @Autowired
     private EmployeeRepository employeeRepository;
+
+    @Autowired
+    private CustomerRepository customerRepository;
 
     @Autowired
     private ItemRepository itemRepository;
@@ -80,6 +96,14 @@ public class EmployeeWebController {
             case "console" -> "Console";
             default -> "Desalocado";
         };
+    }
+
+    @GetMapping("/customer")
+    public String getCustomerListPage(Model model) {
+        var customers = this.customerRepository.findAll();
+        var templates = customers.stream().map(CustomerData::new).toList();
+        model.addAttribute("customerDatas", templates);
+        return "employee-customer-list";
     }
 
    @GetMapping("reg-sale")
