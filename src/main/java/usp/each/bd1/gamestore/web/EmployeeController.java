@@ -125,7 +125,7 @@ public class EmployeeController {
         var existingEmployee = this.employeeRepository.findById(updatedEmployee.getCpf()).orElse(payload.employee);
         var manager = this.managerRepository.findByCpf(managersCpf).orElse(null);
 
-        existingEmployee.getThisPerson().setName(payload.employee.getThisPerson().getName());
+        existingEmployee.getThisPerson().setName(updatedEmployee.getThisPerson().getName());
         existingEmployee.setManager(manager);
         existingEmployee.setRg(updatedEmployee.getRg());
         existingEmployee.setSalary(updatedEmployee.getSalary());
