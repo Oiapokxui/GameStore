@@ -98,4 +98,6 @@ async function clearCustomerInput() {
     let input = document.getElementById("customerCpf");
     input.readOnly = false;
     input.value = "";
+    let discount = document.getElementById("discount");
+    discount.innerText = "";
 }

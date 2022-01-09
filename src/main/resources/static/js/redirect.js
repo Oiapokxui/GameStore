@@ -271,7 +271,7 @@ async function submitSaleForm() {
     let redirect = "/employee-home"
     let resp = await postJsonToServer(jason, endpoint);
 
-    if (resp.status === 422) window.confirm("Não foi achado o funcionário de cpf " + jason["cashierCpf"])
-    else if (resp.status === 500) window.confirm("Não foi possível registrar venda.")
-    window.location.assign(redirect);
+    if (resp.status === 500) window.confirm("Não foi possível registrar venda.")
+    else if (resp.status === 422) window.confirm("Não foi achado o funcionário de cpf " + jason["cashierCpf"])
+    else window.location.assign(redirect);
 }
