@@ -22,7 +22,7 @@ public class CustomerController {
     private CustomerRepository customerRepository;
 
     @GetMapping
-    public Iterable<Customer> getCustommer() {
+    public Iterable<Customer> getCustomer() {
         return this.customerRepository.findAll();
     }
 
