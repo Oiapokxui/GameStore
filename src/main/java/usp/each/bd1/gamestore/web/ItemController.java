@@ -1,7 +1,6 @@
 package usp.each.bd1.gamestore.web;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +18,7 @@ import usp.each.bd1.gamestore.data.repository.StorageRepository;
 
 @RestController
 @RequestMapping("/item")
-public class ItemsController {
+public class ItemController {
     static class EditItemPayload {
         Item item;
         String storageName;
@@ -83,10 +82,9 @@ public class ItemsController {
         return getItemsByName(itemName).stream().findFirst().orElse(null);
     }
 
-    @RequestMapping("/search/any/barcode")
-    @PostMapping
-    public Item getAnyItemByBarcode(@RequestParam("barcode") String barcode) {
-        return itemRepository.findById(barcode).orElse(null);
+    @PostMapping()
+    public Item getAnyItemByBarcode(@RequestParam("barcode") String barcode) throws Exception {
+        return itemRepository.findById(barcode).orElseThrow(() -> new Exception("No item with barcode " + barcode +" found "));
     }
 
     public Iterable<Item> getItemsFromStorageObj(@RequestBody final Storage storage) {

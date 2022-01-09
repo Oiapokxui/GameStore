@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>GameDB - Concluir manutencao</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/styles.css">
+   </head>
+   <body>
+      <navbar class="recHeader sticky-top">
+         <a href="/employee-home.html"><img src="icons/logo.svg" id="logoIcon"></a>
+         <h2 id="logWelcome">Bem-vindo</h2>
+         <img src="icons/avatar.svg" id="avatar">
+      </navbar>
+
+      <div id="checkout" class="mainBox d-flex bd-highlight mb-2">
+         <div class ="p-2 bd-highlight">
+            <section class="func-pannel padding-lg text-center mt-5">
+               <h5>Adicionar produto</h5>
+               <div class="container">
+                  <div class="row">
+                     <div class="col-md-12 col-md-push-1">
+                        <div class="container">
+                           <div class="input-group">
+                              <input id="barcode" type="text" class="form-control" placeholder="Código de barras">
+                              <button type="button" onclick="addNewItem()" class="btn btn-outline-secondary">
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                 </svg>
+                              </button>
+                           </div>
+                           <div class="input-group">
+                              <input id="customerCpf" type="text" class="form-control" placeholder="Cliente">
+                              <button type="button" onclick="getClientData()" class="btn btn-outline-secondary">
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                 </svg>
+                              </button>
+                           </div>
+                           <div class="mt-5 form-floating">
+                              <input type="text" class="form-control" id="paymentMethod" placeholder="Lorem Ipsum">
+                              <label for="paymentMethod">Metodo de pagamento</label>
+                           </div>
+                           <div class="form-floating mt-5">
+                              <input type="text" class="form-control" id="points" placeholder="Lorem Ipsum">
+                              <label for="points">Pontos a atribuir</label>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                  <button id="delButton" type="button" class="btn btn-secondary btn-lg me-md-2">Cancelar</button>
+                  <button id="regButton" type="button" class="btn btn-primary btn-lg me-md-2">Confirmar</button>
+               </div>
+               <script src="js/alterPage.js"></script>
+            </section>
+         </div> <!--close div class p-2 bd -->
+         <div class="me-auto p-2 bd-highlight">
+            <div class="mt-lg-5 row">
+               <div class="row">
+                  <h4 class="text-center">Resumo</h4>
+               </div>
+            </div> <!-- close title row-->
+            <div class="tableFixHead">
+               <table id="items" class="overflow-auto notinha table table-responsive table-striped">
+                  <thead>
+                     <tr>
+                        <th>Código de barras</th>
+                        <th>Nome</th>
+                        <th>Valor (R$)</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr hidden id="emptyRow"><td id="price"></td></tr>
+                  </tbody>
+               </table>
+            </div>
+            <div class="flex-column d-flex me-auto p-2 bd-highlight">
+                <table id="receipt description" class="overflow-auto notinha table">
+                    <tr>
+                        <td class="text-right">
+                           <p>
+                              <strong>Valor total: </strong>
+                           </p>
+                           <p>
+                              <strong>Desconto por pontos: </strong>
+                           </p>
+                        </td>
+                        <td>
+                           <p>
+                              <strong><i class="fa fa-inr"></i> R$</strong>
+                              <strong id="pricesSum"><i class="fa fa-inr"></i>0</strong>
+                           </p>
+                           <p>
+                              <strong><i class="fa fa-inr"></i> R$ -</strong>
+                              <strong id="discount"><i class="fa fa-inr"></i>0</strong>
+                           </p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="text-right">
+                           <h3><strong>Total a pagar: </strong></h3>
+                        </td>
+                        <td class="text-left text-danger">
+                           <h3>
+                              <strong><i class="fa fa-inr"></i> R$</strong>
+                              <strong id="total"><i class="fa fa-inr"></i>0</strong>
+                           </h3>
+                        </td>
+                     </tr>
+                 </table>
+             </div>
+         </div> <!--close me-auto p-2 bd-->
+      </div>
+
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+   </body>
+</html>

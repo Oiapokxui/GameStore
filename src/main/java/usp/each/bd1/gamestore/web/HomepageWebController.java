@@ -49,6 +49,6 @@ public class HomepageWebController {
     @RequestMapping("/sales")
     @GetMapping
     public String ble() {
-        return "sale";
+        return "employee-sale";
     }
 }

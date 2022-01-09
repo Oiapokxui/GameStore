@@ -40,8 +40,8 @@
                               </thead>
                               <tr id="itemRow" th:each="storage: ${storages}">
                                  <td id= "name" th:text="${storage.name}"></td>
-                                 <td id="editButton"><button id="tableEditBut" onclick="goToEditStoragePage()">Editar</button></td>
-                                 <td id="deleteButton"><button id="tableDelBut" onclick="deleteStorage()">Deletar</button></td>
+                                 <td id="editButton"><button class="tableEditBut" onclick="goToEditStoragePage()">Editar</button></td>
+                                 <td id="deleteButton"><button class="tableDelBut" onclick="deleteStorage()">Deletar</button></td>
                               </tr>
                            </table>
                         </div>

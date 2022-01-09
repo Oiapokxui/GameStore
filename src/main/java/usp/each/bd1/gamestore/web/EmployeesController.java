@@ -137,10 +137,4 @@ public class EmployeesController {
         if (typeHasChanged)
             updateEmployeeType(existingEmployee.getCpf(), existingEmployee.getEmployeeType(), newEmployeeType);
     }
-
-    @PostMapping
-    public void create() {
-        Manager my = new Manager("1", new Employee("1", "Operesen Nolate", "1", 5000.0));
-        employeeRepository.save(new Employee("1000", "1000", 1000.0, new Person("1000", "1000"), my));
-    }
 }

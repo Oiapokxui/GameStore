@@ -27,7 +27,7 @@ public interface ItemRepository extends CrudRepository<Item, String> {
     List<Item> findByName(@Param("nome") String itemName);
 
     @Query(value = "select * from produto prod where prod.codigo_de_barras=:barcode", nativeQuery = true)
-    Optional<Item> findById(@Param("barcode") String itemName);
+    Optional<Item> findById(@Param("barcode") String barcode);
 
     @Query(value = "select estoq.nome from produto prod inner join estoque estoq on estoq.nome = prod.nome_estoque where prod.codigo_de_barras=:barcode", nativeQuery = true)
     Optional<Storage> getStorageByBarcode(@Param("barcode") String barcode);
