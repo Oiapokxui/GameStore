@@ -29,7 +29,7 @@ public class ManagerController {
 
     @RequestMapping("/search/any")
     @PostMapping
-    public Optional<Manager> searchAnyManager(@RequestParam("cpf") String cpf) throws Exception {
+    public Optional<Manager> searchAnyManager(@RequestParam("cpf") String cpf){
         var manager = managerRepository.findById(cpf);
         return manager;
     }
@@ -40,5 +40,5 @@ public class ManagerController {
         managerRepository.save(my);
     }
 
-    public boolean isManager(@RequestParam("cpf") String cpf) throws Exception {return searchAnyManager(cpf).isPresent();}
+    public boolean isManager(@RequestParam("cpf") String cpf) {return searchAnyManager(cpf).isPresent();}
 }

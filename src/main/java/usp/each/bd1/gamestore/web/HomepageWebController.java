@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import usp.each.bd1.gamestore.data.repository.EmployeeRepository;
+
 @Controller
 @RequestMapping("/")
 public class HomepageWebController {
@@ -18,15 +20,15 @@ public class HomepageWebController {
     @Autowired
     ManagerController managerController;
 
+    @Autowired
+    EmployeeRepository employeeRepository;
+
     @PostMapping
     @ResponseBody
     public String temp(@RequestParam("cpf") String cpf) throws Exception{
-        try {
-            if (managerController.isManager(cpf)) return managerHome();
-            else employeeHome();
-        }
-        catch(MissingServletRequestParameterException e) {}
-        throw new NoSuchElementException("No cashier or manager found with " + cpf + " as cpf string");
+        if (!employeeRepository.existsById(cpf)) throw new NoSuchElementException("No cashier or manager found with " + cpf + " as cpf string");
+        else if (managerController.isManager(cpf)) return managerHome();
+        else return employeeHome();
     }
 
     @GetMapping
@@ -47,6 +49,6 @@ public class HomepageWebController {
     @RequestMapping("/sales")
     @GetMapping
     public String ble() {
-        return "employee-sale";
+        return "employee-sale-register";
     }
 }

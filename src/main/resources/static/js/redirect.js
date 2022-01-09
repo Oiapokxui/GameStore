@@ -9,7 +9,7 @@ async function submitForm() {
     });
     let body = await resp.text();
 
-    if(resp.status !== 200) document.getElementById("error_msg").innerText = "Gerente ou Caixa de CPF " + cpf + " não encontrado";
+    if(resp.status !== 200) document.getElementById("error_msg").innerText = "Funcionário não encontrado";
     else window.location.assign("/" + body);
 }
 async function getSelectedValueFromFilter(filterSelect) {

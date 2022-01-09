@@ -92,4 +92,8 @@ public class EmployeeWebController {
         };
     }
 
+   @GetMapping("reg-sale")
+   public String getSaleRegisterPage() {
+        return "employee-sale-register";
+   }
 }

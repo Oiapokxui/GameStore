@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import usp.each.bd1.gamestore.data.entity.Employee;
-import usp.each.bd1.gamestore.data.entity.Manager;
 import usp.each.bd1.gamestore.data.entity.Person;
 import usp.each.bd1.gamestore.data.repository.AssistanceRepository;
 import usp.each.bd1.gamestore.data.repository.CashierRepository;
@@ -22,7 +21,7 @@ import usp.each.bd1.gamestore.data.repository.TechnicianRepository;
 
 @RestController
 @RequestMapping("/employee")
-public class EmployeesController {
+public class EmployeeController {
     static class UpdateEmployeePayload {
         Employee employee;
         String managersCpf;
