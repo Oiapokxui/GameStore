@@ -22,4 +22,9 @@ public class StorageWebController {
         model.addAttribute("storage", storage.orElse(null));
         return (storage.isPresent()) ? "manager-storage-edit" : null;
     }
+
+    @GetMapping("/register")
+    public String getRegisterStoragePage() {
+        return "manager-storage-register";
+    }
 }

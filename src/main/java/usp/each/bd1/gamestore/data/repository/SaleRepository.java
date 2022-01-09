@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 import usp.each.bd1.gamestore.data.entity.Sale;
 
 @Repository
-public interface SalesRepository extends CrudRepository<Sale, BigInteger> {
+public interface SaleRepository extends CrudRepository<Sale, BigInteger> {
     @Query(value="select * from venda ", nativeQuery = true)
     List<Sale> findAll();
 

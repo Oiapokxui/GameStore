@@ -1,5 +1,7 @@
 package usp.each.bd1.gamestore.data.entity;
 
+import java.util.Optional;
+
 import javax.persistence.*;
 
 import lombok.Getter;
@@ -23,7 +25,7 @@ public class Item {
 
     @ManyToOne
     @JoinColumn(name = "ID_VENDA")
-    @Setter
+    @Getter @Setter
     private Sale sale;
 
     @ManyToOne
@@ -42,4 +44,17 @@ public class Item {
     @OneToOne(mappedBy = "item", cascade = CascadeType.REMOVE)
     @PrimaryKeyJoinColumn
     private Accessory thisAsAccessory;
+
+    public String getItemType() {
+        if (thisAsAccessory != null) return "accessory";
+        else if(thisAsVideoGame != null) return "videoGame";
+        else if(thisAsVideoGameConsole != null) return "console";
+        else return "unassigned";
+    }
+
+    public String getSaleIdAsString(){
+        return Optional.ofNullable(getSale())
+                .flatMap(sale -> Optional.of(sale.getIdAsString()))
+                .orElse("");
+    }
 }

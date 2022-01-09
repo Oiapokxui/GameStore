@@ -1,8 +1,6 @@
 package usp.each.bd1.gamestore.data.repository;
 
-import java.math.BigInteger;
 import java.util.List;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -14,7 +12,6 @@ import org.springframework.stereotype.Repository;
 
 import usp.each.bd1.gamestore.data.entity.Assistance;
 import usp.each.bd1.gamestore.data.entity.AssistanceId;
-import usp.each.bd1.gamestore.data.entity.Sale;
 
 @Repository
 public interface AssistanceRepository extends CrudRepository<Assistance, AssistanceId> {

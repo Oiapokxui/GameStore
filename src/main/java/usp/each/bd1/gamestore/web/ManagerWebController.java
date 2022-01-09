@@ -27,12 +27,18 @@ public class ManagerWebController {
         String name;
 
         @Getter
+        String managersCpf;
+
+        @Getter
         String employeeType;
 
-        public EmployeeData(final Employee employee, final String employeeType) {
+        public EmployeeData(final Employee employee) {
             this.employee = employee;
-            this.employeeType = employeeType;
-            this.name = employee.getThisPerson().getName();
+            this.name = employee.getName();
+            this.employeeType = ManagerWebController.translateTypeStringToPTBR(employee);
+            this.managersCpf = Optional.ofNullable(employee.getManager())
+                    .flatMap( manager -> Optional.of(manager.getCpf()))
+                    .orElse("");
         }
     }
 
@@ -42,19 +48,21 @@ public class ManagerWebController {
     @Autowired
     private StorageRepository storageRepository;
 
-    private String translateTypeStringToPTBR(String type) {
-        if(type.equals("manager")) return "Gerente";
-        else if(type.equals("salesAssociate")) return "Atendente";
-        else if(type.equals("technician")) return "Técnico de Manutenção";
-        else if(type.equals("cashier")) return "Caixa";
-        else return "Desalocado";
+    private static String translateTypeStringToPTBR(Employee employee) {
+        var type = employee.getEmployeeType();
+        return switch(type) {
+            case "manager" -> "Gerente";
+            case "salesAssociate" -> "Atendente";
+            case "technician" -> "Técnico de Manutenção";
+            case "cashier" -> "Caixa";
+            default -> "Desalocado";
+        };
     }
 
     @GetMapping("/employee")
     public String getEmployeeListPage(Model model) {
         var employees = this.employeeRepository.findAll();
-        Function<Employee, String> translateEmployeeType = (employee) -> translateTypeStringToPTBR(employee.getEmployeeType());
-        var templates = employees.stream().map(employee -> new EmployeeData(employee, translateEmployeeType.apply(employee))).toList();
+        var templates = employees.stream().map(EmployeeData::new).toList();
         model.addAttribute("employeeDatas", templates);
         return "manager-employee-list";
     }

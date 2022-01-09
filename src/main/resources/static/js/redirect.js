@@ -9,7 +9,7 @@ async function submitForm() {
     });
     let body = await resp.text();
 
-    if(resp.status !== 200) document.getElementById("error_msg").innerText = "Gerente ou Caixa de CPF " + cpf + " não encontrado";
+    if(resp.status !== 200) document.getElementById("error_msg").innerText = "Funcionário não encontrado";
     else window.location.assign("/" + body);
 }
 async function getSelectedValueFromFilter(filterSelect) {
@@ -20,7 +20,7 @@ async function getSelectedValueFromFilter(filterSelect) {
 async function reloadToNewStorage() {
     let filterSelect = document.getElementById("filters");
     let storageName = await getSelectedValueFromFilter(filterSelect);
-    if (storageName === "Selecione um estoque") window.location.assign("/manager/storage")
+    if (storageName === "Selecione um estoque") window.location.assign("/employee/item")
     else window.location.assign("?storage=" + storageName);
 }
 
@@ -34,6 +34,40 @@ async function getFieldValueFromRow(row, fieldId) {
     );
     console.log(fieldValue);
     return fieldValue;
+}
+
+async function createItem(){
+    let form = document.getElementById("data");
+    let filterSelect = document.getElementById("filters");
+    let storageName = await getSelectedValueFromFilter(filterSelect);
+    let jason = {
+        'item': await formDataToJson(form),
+        'storageName' : storageName,
+    };
+    let endpoint = "employee/item";
+
+    postJsonToServer(jason, "item/create")
+        .then( resp => resp.text())
+        .then(
+            (okBody) => window.location.assign('/' + endpoint),
+            (err) => console.log("sadly:error")
+        );
+}
+
+async function createStorage(){
+    let form = document.getElementById("data");
+    let jason = await formDataToJson(form);
+    let endpoint = "manager/storage";
+
+    postJsonToServer(jason, "storage/create")
+        .then( resp => resp.status)
+        .then(
+            (respStatus) => {
+                if (respStatus === 200) window.location.assign('/' + endpoint)
+                else window.confirm("Não foi possível adicionar o estoque.")
+            },
+            (err) => console.log("sadliest:error")
+        );
 }
 
 async function goToEditStoragePage(){
@@ -54,7 +88,7 @@ async function goToEditItemPage(){
     let row = event.target.parentNode.parentNode;
     let barcode = await getFieldValueFromRow(row, "barcode");
 
-    window.location.assign("/items/edit?barcode=" + barcode);
+    window.location.assign("/item/page/edit?barcode=" + barcode);
 }
 
 async function deleteStorage(){
@@ -104,11 +138,11 @@ async function deleteItem(){
     if(!confirm("Gostaria de deletar esse item?")) return;
     form.append("barcode", await getFieldValueFromRow(row, "barcode"))
 
-    postFormDataToServer(form, "items/delete")
+    postFormDataToServer(form, "item/delete")
         .then(
             (resp) => {
                 if(resp.status === 200) window.location.reload()
-                else window.confirm("Não é possível deletar um item que já foi comprado.")
+                else window.confirm("Não foi possível deletar esse item.")
             },
             (err) => console.log(err)
     );
@@ -153,13 +187,12 @@ async function employeeJsonFromPage() {
     let employeeName = employeeJson["name"];
     delete employeeJson["name"];
 
-    let jason = {
+    return {
         "employee" : employeeJson,
         "managersCpf" : managersCpf,
         "type" : newType,
         "name" : employeeName,
     }
-    return jason;
 }
 
 async function updateEmployee(){
@@ -180,17 +213,17 @@ async function updateEmployee(){
 async function updateStorage(){
     let form = document.getElementById("data");
     let jason = await formDataToJson(form);
-    let endpoint = "manager/storage";
+    let redirect = "/manager/storage";
 
-    postJsonToServer(jason, "storage/edit")
-        .then( resp => resp.text())
-        .then(
-            (okBody) => window.location.assign('/' + endpoint),
-            (err) => console.log("sadly:error")
-        );
+    let resp = await postJsonToServer(jason, "storage/edit")
+
+    if (resp.status !== 200) window.confirm("Ocorreu um erro")
+    window.location.assign(redirect);
 }
 
 async function updateItem(){
+    if (! window.confirm("Gostaria de atualizar esse produto? Isso pode causar incongruências em vendas passadas.")) return;
+
     let form = document.getElementById("data");
     let filterSelect = document.getElementById("filters");
     let storageName = await getSelectedValueFromFilter(filterSelect);
@@ -198,12 +231,40 @@ async function updateItem(){
         'item': await formDataToJson(form),
         'storageName' : storageName,
     };
-    let endpoint = "manager/storage";
 
-    postJsonToServer(jason, "items/edit")
-        .then( resp => resp.text())
-        .then(
-            (okBody) => window.location.assign('/' + endpoint),
-            (err) => console.log("sadly:error")
-        );
+    let redirect = "/employee/item";
+    let resp = await postJsonToServer(jason, "item/edit")
+
+    if (resp.status !== 200) window.confirm("Ocorreu um erro")
+    window.location.assign(redirect);
+}
+
+async function submitSaleForm() {
+    let form = document.getElementById("forms");
+    let jason = await formDataToJson(form);
+    if (jason["customerCpf"] === "") {
+        window.confirm("É preciso preencher o CPF do cliente")
+        return;
+    }
+    if (jason["cashierCpf"] === "") {
+        window.confirm("É preciso preencher o CPF do cliente")
+        return;
+    }
+    let itemRows = document.getElementById("items").tBodies[0].rows;
+    let barcodes = Array.from(itemRows)
+        .flatMap(row => Array.from(row.cells))
+        .filter(cell => cell.id === "barcode")
+        .map(cell => cell.innerText)
+
+    delete jason["barcode"];
+    jason["barcodes"] = barcodes;
+    console.log(barcodes);
+
+    let endpoint = "sale/register"
+    let redirect = "/employee-home"
+    let resp = await postJsonToServer(jason, endpoint);
+
+    if (resp.status === 422) window.confirm("Não foi achado o funcionário de cpf " + jason["cashierCpf"])
+    else if (resp.status === 500) window.confirm("Não foi possível registrar venda.")
+    window.location.assign(redirect);
 }
