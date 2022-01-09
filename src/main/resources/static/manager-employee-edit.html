@@ -22,6 +22,10 @@
         <h3 class="mt-5">Editar funcionário</h3>
         <form id="data">
             <div class="form-floating">
+                <input type="text" class="form-control" id="name" placeholder="XXXXXXXXX-XX" th:value="${name}">
+                <label for="name">Nome</label>
+            </div>
+            <div class="form-floating">
                 <input readonly type="text" class="form-control" id="cpf" placeholder="XXXXXXXXX-XX" th:value="${employee.cpf}">
                 <label for="cpf">CPF</label>
             </div>

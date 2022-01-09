@@ -14,18 +14,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/")
 public class HomepageWebController {
-    @Autowired
-    ManagerController managerController;
 
     @Autowired
-    CashierController cashierController;
+    ManagerController managerController;
 
     @PostMapping
     @ResponseBody
     public String temp(@RequestParam("cpf") String cpf) throws Exception{
         try {
             if (managerController.isManager(cpf)) return managerHome();
-            if (cashierController.isCashier(cpf)) return cashierHome();
+            else employeeHome();
         }
         catch(MissingServletRequestParameterException e) {}
         throw new NoSuchElementException("No cashier or manager found with " + cpf + " as cpf string");
@@ -42,7 +40,7 @@ public class HomepageWebController {
     }
 
     @GetMapping("/employee-home")
-    public String cashierHome() {
+    public String employeeHome() {
         return "employee-home";
     }
 

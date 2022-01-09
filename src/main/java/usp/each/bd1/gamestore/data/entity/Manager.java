@@ -18,6 +18,7 @@ public class Manager implements Serializable {
     @Id
     @Column(name="CPF")
     @NonNull
+    @Getter
     private String cpf;
 
     @OneToOne(cascade = CascadeType.MERGE)
@@ -37,5 +38,9 @@ public class Manager implements Serializable {
     public Manager(@NonNull final String cpf, final Employee thisEmployee) {
         this.cpf = cpf;
         this.thisEmployee = thisEmployee;
+    }
+
+    public String getName() {
+        return thisEmployee.getName();
     }
 }

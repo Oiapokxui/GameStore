@@ -82,4 +82,8 @@ public class Employee {
         else if(this.thisAsSalesAssociate != null) return "salesAssociate";
         else return "unassigned";
     }
+
+    public String getName() {
+        return thisPerson.getName();
+    }
 }
