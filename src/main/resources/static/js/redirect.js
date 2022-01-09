@@ -240,3 +240,25 @@ async function updateItem(){
             (err) => console.log("sadly:error")
         );
 }
+
+async function submitSaleForm() {
+    let form = document.getElementById("forms");
+    let jason = await formDataToJson(form);
+    if (jason["customerCpf"] === "") {
+        window.confirm("É preciso preencher o CPF do cliente")
+        return;
+    }
+    let itemRows = document.getElementById("items").tBodies[0].rows;
+    let barcodes = Array.from(itemRows)
+        .flatMap(row => Array.from(row.cells))
+        .filter(cell => cell.id === "barcode")
+        .map(cell => cell.innerText)
+
+    delete jason["barcode"];
+    jason["barcodes"] = barcodes;
+    console.log(barcodes);
+
+    let endpoint = "sale/register"
+    let resp = await postJsonToServer(jason, endpoint);
+
+}

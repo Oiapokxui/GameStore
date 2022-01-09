@@ -81,10 +81,20 @@ async function selectEmployeeType(){
 }
 
 async function getClientData() {
-    let cpf = document.getElementById("customerCpf").value
+    let cpf = document.getElementById("customerCpf").value;
+    let input = document.getElementById("customerCpf");
 
     let resp = await fetch("/customer?cpf=" + cpf);
     let customer = await resp.json();
-    if (resp.status === 200) updateCustomerPoints(customer);
+    if (resp.status === 200) {
+        updateCustomerPoints(customer);
+        input.readOnly = true;
+    }
     else /*document.getElementById("error_msg").innerText = */ console.log("Código de barras não está cadastrado")
+}
+
+async function clearCustomerInput() {
+    let input = document.getElementById("customerCpf");
+    input.readOnly = false;
+    input.value = "";
 }
