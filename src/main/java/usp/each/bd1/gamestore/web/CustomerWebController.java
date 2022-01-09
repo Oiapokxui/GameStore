@@ -14,6 +14,7 @@ import lombok.Getter;
 import usp.each.bd1.gamestore.data.entity.Item;
 import usp.each.bd1.gamestore.data.repository.CustomerRepository;
 import usp.each.bd1.gamestore.data.repository.StorageRepository;
+import usp.each.bd1.gamestore.exception.CustomerNotFound;
 
 @Controller
 @RequestMapping("/customer")
@@ -43,7 +44,10 @@ public class CustomerWebController {
     private StorageRepository storageRepository;
 
     @GetMapping("/edit")
-    public String getCustomerEditPage(@RequestParam(value = "cpf") String cpf, Model model) {
+    public String getCustomerEditPage(@RequestParam(value = "cpf") String cpf, Model model) throws CustomerNotFound {
+        var customer = customerRepository.findById(cpf).orElseThrow(() -> new CustomerNotFound(""));
+        model.addAttribute("customerName", customer.getName());
+        model.addAttribute("customerCpf", customer.getCpf());
         return "client-register";
     }
 

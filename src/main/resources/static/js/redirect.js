@@ -70,6 +70,13 @@ async function createStorage(){
         );
 }
 
+async function goToEditCustomerPage(){
+    let row = event.target.parentNode.parentNode;
+    let barcode = await getFieldValueFromRow(row, "cpf");
+
+    window.location.assign("/customer/edit?cpf=" + barcode);
+}
+
 async function goToEditStoragePage(){
     let row = event.target.parentNode.parentNode;
     let barcode = await getFieldValueFromRow(row, "name");

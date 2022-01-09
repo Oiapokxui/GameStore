@@ -30,6 +30,6 @@ public interface SalesAssociateRepository extends CrudRepository<SalesAssociate,
 
     @Transactional
     @Modifying
-    @Query(value = "insert into funcionario values (:cpf)", nativeQuery=true)
+    @Query(value = "insert into atendente values (:cpf)", nativeQuery=true)
     void insert(@Param("cpf") String cpf);
 }

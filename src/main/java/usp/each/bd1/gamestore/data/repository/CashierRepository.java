@@ -29,6 +29,6 @@ public interface CashierRepository extends CrudRepository<Cashier, String> {
 
     @Transactional
     @Modifying
-    @Query(value = "insert into funcionario values (:cpf)", nativeQuery=true)
+    @Query(value = "insert into caixa values (:cpf)", nativeQuery=true)
     void insert(@Param("cpf") String cpf);
 }

@@ -29,6 +29,6 @@ public interface TechnicianRepository extends CrudRepository<Technician, String>
 
     @Transactional
     @Modifying
-    @Query(value = "insert into funcionario values (:cpf)", nativeQuery=true)
+    @Query(value = "insert into tecnico_de_manutencao values (:cpf)", nativeQuery=true)
     void insert(@Param("cpf") String cpf);
 }
