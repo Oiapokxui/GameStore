@@ -1,5 +1,6 @@
 package usp.each.bd1.gamestore.web;
 
+import java.math.BigInteger;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -27,9 +28,13 @@ public class EmployeeWebController {
         @Getter
         String type;
 
-        public ItemData(final Item item, final String type) {
+        @Getter
+        BigInteger saleId;
+
+        public ItemData(final Item item, final String type, final BigInteger saleId) {
             this.item = item;
             this.type = type;
+            this.saleId = saleId;
         }
     }
 
@@ -50,7 +55,9 @@ public class EmployeeWebController {
 
         var storages = this.storageRepository.findAll();
         Function<Item, String> translateItemType = (item) -> translateTypeStringToPTBR(item.getItemType());
-        var templates = items.stream().map(item -> new ItemData(item, translateItemType.apply(item))).toList();
+        var templates = items.stream().map(item ->
+                new ItemData(item, translateItemType.apply(item), item.getSale().getId())
+        ).toList();
 
         model.addAttribute("itemDatas", templates);
         model.addAttribute("storages", storages);
@@ -77,10 +84,12 @@ public class EmployeeWebController {
     }
 
     private String translateTypeStringToPTBR(String type) {
-        if(type.equals("accessory")) return "Acessório";
-        else if(type.equals("videoGame")) return "Video-Game";
-        else if(type.equals("console")) return "Console";
-        else return "Desalocado";
+        return switch(type) {
+            case "accessory" -> "Acessório";
+            case "videoGame" -> "Video-Game";
+            case "console" -> "Console";
+            default -> "Desalocado";
+        };
     }
 
 }

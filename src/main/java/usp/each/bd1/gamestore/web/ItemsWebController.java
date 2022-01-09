@@ -29,7 +29,9 @@ public class ItemsWebController {
     }
 
     @GetMapping("/register")
-    public String getRegisterItemPage() {
+    public String getRegisterItemPage(Model model) {
+        var storages = this.storageRepository.findAll();
+        model.addAttribute("storages", storages);
         return "employee-item-register";
     }
 }

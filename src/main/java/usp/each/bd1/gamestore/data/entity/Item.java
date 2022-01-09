@@ -23,7 +23,7 @@ public class Item {
 
     @ManyToOne
     @JoinColumn(name = "ID_VENDA")
-    @Setter
+    @Getter @Setter
     private Sale sale;
 
     @ManyToOne

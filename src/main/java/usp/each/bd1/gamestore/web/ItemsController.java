@@ -1,6 +1,7 @@
 package usp.each.bd1.gamestore.web;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import usp.each.bd1.gamestore.data.entity.Item;
 import usp.each.bd1.gamestore.data.entity.Storage;
 import usp.each.bd1.gamestore.data.repository.ItemRepository;
+import usp.each.bd1.gamestore.data.repository.SaleRepository;
 import usp.each.bd1.gamestore.data.repository.StorageRepository;
 
 @RestController
@@ -30,23 +32,37 @@ public class ItemsController {
 
     @Autowired private ItemRepository itemRepository;
     @Autowired private StorageRepository storageRepository;
+    @Autowired private SaleRepository saleRepository;
 
     @GetMapping("/all")
     public Iterable<Item> getItems() {
-        var items = this.itemRepository.findAll();
-        return items;
+        return this.itemRepository.findAll();
+    }
+
+    @PostMapping("/create")
+    public void createItem(@RequestBody EditItemPayload payload){
+        var newItem = payload.item;
+
+        assert(newItem.getPrice() >= 0);
+        assert(!itemRepository.existsById(newItem.getBarcode()));
+
+        var updatedStorage = this.storageRepository.findById(payload.storageName);
+
+        newItem.setStorage(updatedStorage.orElse(null));
+        this.itemRepository.save(newItem);
     }
 
     @PostMapping("/edit")
-    public String updateItem(@RequestBody EditItemPayload payload){
+    public void updateItem(@RequestBody EditItemPayload payload){
         var updatedItem = payload.item;
-        var existingItem = this.itemRepository.findById(updatedItem.getBarcode()).orElse(updatedItem);
-        var updatedStorage = this.storageRepository.findById(payload.storageName);
+        var existingItem = itemRepository.findById(updatedItem.getBarcode()).orElse(updatedItem);
+        var updatedStorageOpt =  this.storageRepository.findById(payload.storageName);
+        var updatedStorage = existingItem.getSale() == null ? null : updatedStorageOpt.orElse(null);
+
         existingItem.setName(updatedItem.getName());
         existingItem.setPrice(updatedItem.getPrice());
-        existingItem.setStorage(updatedStorage.orElse(null));
+        existingItem.setStorage(updatedStorage);
         this.itemRepository.save(existingItem);
-        return "ok";
     }
 
     @PostMapping("/delete")
@@ -80,7 +96,6 @@ public class ItemsController {
     @RequestMapping("/search/all/storageName")
     @PostMapping
     public Iterable<Item> getItemsFromStorage(@RequestBody final String storageName) {
-        var items = this.itemRepository.findByStorageName(storageName);
-        return items;
+        return this.itemRepository.findByStorageName(storageName);
     }
 }

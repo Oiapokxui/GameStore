@@ -36,6 +36,24 @@ async function getFieldValueFromRow(row, fieldId) {
     return fieldValue;
 }
 
+async function createItem(){
+    let form = document.getElementById("data");
+    let filterSelect = document.getElementById("filters");
+    let storageName = await getSelectedValueFromFilter(filterSelect);
+    let jason = {
+        'item': await formDataToJson(form),
+        'storageName' : storageName,
+    };
+    let endpoint = "employee/item";
+
+    postJsonToServer(jason, "item/create")
+        .then( resp => resp.text())
+        .then(
+            (okBody) => window.location.assign('/' + endpoint),
+            (err) => console.log("sadly:error")
+        );
+}
+
 async function createStorage(){
     let form = document.getElementById("data");
     let jason = await formDataToJson(form);
@@ -120,11 +138,11 @@ async function deleteItem(){
     if(!confirm("Gostaria de deletar esse item?")) return;
     form.append("barcode", await getFieldValueFromRow(row, "barcode"))
 
-    postFormDataToServer(form, "items/delete")
+    postFormDataToServer(form, "item/delete")
         .then(
             (resp) => {
                 if(resp.status === 200) window.location.reload()
-                else window.confirm("Não é possível deletar um item que já foi comprado.")
+                else window.confirm("Não foi possível deletar esse item.")
             },
             (err) => console.log(err)
     );
@@ -169,13 +187,12 @@ async function employeeJsonFromPage() {
     let employeeName = employeeJson["name"];
     delete employeeJson["name"];
 
-    let jason = {
+    return {
         "employee" : employeeJson,
         "managersCpf" : managersCpf,
         "type" : newType,
         "name" : employeeName,
     }
-    return jason;
 }
 
 async function updateEmployee(){
@@ -214,9 +231,9 @@ async function updateItem(){
         'item': await formDataToJson(form),
         'storageName' : storageName,
     };
-    let endpoint = "manager/storage";
+    let endpoint = "employee/item";
 
-    postJsonToServer(jason, "items/edit")
+    postJsonToServer(jason, "item/edit")
         .then( resp => resp.text())
         .then(
             (okBody) => window.location.assign('/' + endpoint),

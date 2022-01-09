@@ -1,9 +1,6 @@
 package usp.each.bd1.gamestore.web;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +17,7 @@ import usp.each.bd1.gamestore.data.repository.ManagerRepository;
 import usp.each.bd1.gamestore.data.repository.PurchaseRepository;
 import usp.each.bd1.gamestore.data.repository.RepairRepository;
 import usp.each.bd1.gamestore.data.repository.SalesAssociateRepository;
-import usp.each.bd1.gamestore.data.repository.SalesRepository;
+import usp.each.bd1.gamestore.data.repository.SaleRepository;
 import usp.each.bd1.gamestore.data.repository.TechnicianRepository;
 
 @RestController
@@ -44,7 +41,7 @@ public class EmployeesController {
     private EmployeeRepository employeeRepository;
     
     @Autowired
-    private SalesRepository salesRepository;
+    private SaleRepository saleRepository;
 
     @Autowired
     private AssistanceRepository assistanceRepository;
@@ -69,8 +66,7 @@ public class EmployeesController {
 
     @GetMapping
     public Iterable<Employee> getEmployees() {
-        var employees = this.employeeRepository.findAll();
-        return employees;
+        return this.employeeRepository.findAll();
     }
 
     private void unassignManager(String cpf) {
@@ -80,7 +76,7 @@ public class EmployeesController {
     }
 
     private void unassignCashier(String cpf) {
-        this.salesRepository.unassignCashier(cpf);
+        this.saleRepository.unassignCashier(cpf);
         this.cashierRepository.deleteById(cpf);
     }
 
@@ -94,18 +90,22 @@ public class EmployeesController {
         this.technicianRepository.deleteById(cpf);
     }
     private void unassignEmployee(String employeeCpf, String oldType) {
-        if(oldType.equals("manager")) unassignManager(employeeCpf);
-        else if(oldType.equals("salesAssociate")) unassignSalesAssociate(employeeCpf);
-        else if(oldType.equals("technician")) unassignTechnician(employeeCpf);
-        else if(oldType.equals("cashier")) unassignCashier(employeeCpf);
+        switch(oldType) {
+            case "manager" -> unassignManager(employeeCpf);
+            case "salesAssociate" -> unassignSalesAssociate(employeeCpf);
+            case "technician" -> unassignTechnician(employeeCpf);
+            case "cashier" -> unassignCashier(employeeCpf);
+        }
     }
 
     private void updateEmployeeType(String employeeCpf, String oldType, String newType) {
         unassignEmployee(employeeCpf, oldType);
-        if(newType.equals("manager")) this.managerRepository.insert(employeeCpf);
-        else if(newType.equals("salesAssociate")) this.salesAssociateRepository.insert(employeeCpf);
-        else if(newType.equals("technician")) this.technicianRepository.insert(employeeCpf);
-        else if(newType.equals("cashier")) this.cashierRepository.insert(employeeCpf);
+        switch(newType) {
+            case "manager" -> this.managerRepository.insert(employeeCpf);
+            case "salesAssociate" -> this.salesAssociateRepository.insert(employeeCpf);
+            case "technician" -> this.technicianRepository.insert(employeeCpf);
+            case "cashier" -> this.cashierRepository.insert(employeeCpf);
+        }
     }
 
     @PostMapping("/delete")
