@@ -1,8 +1,6 @@
 package usp.each.bd1.gamestore.web;
 
-import java.math.BigInteger;
 import java.util.Optional;
-import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,19 +20,14 @@ import usp.each.bd1.gamestore.data.repository.StorageRepository;
 public class EmployeeWebController {
 
     static class ItemData {
-        @Getter
-        Item item;
+        @Getter Item item;
+        @Getter String type;
+        @Getter String saleId;
 
-        @Getter
-        String type;
-
-        @Getter
-        BigInteger saleId;
-
-        public ItemData(final Item item, final String type, final BigInteger saleId) {
+        public ItemData(final Item item) {
             this.item = item;
-            this.type = type;
-            this.saleId = saleId;
+            this.type = EmployeeWebController.translateTypeStringToPTBR(item);;
+            this.saleId = item.getSaleIdAsString();
         }
     }
 
@@ -54,10 +47,7 @@ public class EmployeeWebController {
                 .orElse(this.itemRepository.findAll());
 
         var storages = this.storageRepository.findAll();
-        Function<Item, String> translateItemType = (item) -> translateTypeStringToPTBR(item.getItemType());
-        var templates = items.stream().map(item ->
-                new ItemData(item, translateItemType.apply(item), item.getSale().getId())
-        ).toList();
+        var templates = items.stream().map(ItemData::new).toList();
 
         model.addAttribute("itemDatas", templates);
         model.addAttribute("storages", storages);
@@ -83,8 +73,8 @@ public class EmployeeWebController {
         return "manager-employee-register";
     }
 
-    private String translateTypeStringToPTBR(String type) {
-        return switch(type) {
+    private static String translateTypeStringToPTBR(Item item) {
+        return switch(item.getItemType()) {
             case "accessory" -> "Acessório";
             case "videoGame" -> "Video-Game";
             case "console" -> "Console";

@@ -12,7 +12,7 @@ import usp.each.bd1.gamestore.data.repository.StorageRepository;
 
 @Controller
 @RequestMapping("/item/page")
-public class ItemsWebController {
+public class ItemWebController {
     @Autowired
     private ItemRepository itemRepository;
 

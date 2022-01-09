@@ -213,17 +213,17 @@ async function updateEmployee(){
 async function updateStorage(){
     let form = document.getElementById("data");
     let jason = await formDataToJson(form);
-    let endpoint = "manager/storage";
+    let redirect = "/manager/storage";
 
-    postJsonToServer(jason, "storage/edit")
-        .then( resp => resp.text())
-        .then(
-            (okBody) => window.location.assign('/' + endpoint),
-            (err) => console.log("sadly:error")
-        );
+    let resp = await postJsonToServer(jason, "storage/edit")
+
+    if (resp.status !== 200) window.confirm("Ocorreu um erro")
+    window.location.assign(redirect);
 }
 
 async function updateItem(){
+    if (! window.confirm("Gostaria de atualizar esse produto? Isso pode causar incongruências em vendas passadas.")) return;
+
     let form = document.getElementById("data");
     let filterSelect = document.getElementById("filters");
     let storageName = await getSelectedValueFromFilter(filterSelect);
@@ -231,20 +231,22 @@ async function updateItem(){
         'item': await formDataToJson(form),
         'storageName' : storageName,
     };
-    let endpoint = "employee/item";
 
-    postJsonToServer(jason, "item/edit")
-        .then( resp => resp.text())
-        .then(
-            (okBody) => window.location.assign('/' + endpoint),
-            (err) => console.log("sadly:error")
-        );
+    let redirect = "/employee/item";
+    let resp = await postJsonToServer(jason, "item/edit")
+
+    if (resp.status !== 200) window.confirm("Ocorreu um erro")
+    window.location.assign(redirect);
 }
 
 async function submitSaleForm() {
     let form = document.getElementById("forms");
     let jason = await formDataToJson(form);
     if (jason["customerCpf"] === "") {
+        window.confirm("É preciso preencher o CPF do cliente")
+        return;
+    }
+    if (jason["cashierCpf"] === "") {
         window.confirm("É preciso preencher o CPF do cliente")
         return;
     }
@@ -259,6 +261,10 @@ async function submitSaleForm() {
     console.log(barcodes);
 
     let endpoint = "sale/register"
+    let redirect = "/employee-home"
     let resp = await postJsonToServer(jason, endpoint);
 
+    if (resp.status === 422) window.confirm("Não foi achado o funcionário de cpf " + jason["cashierCpf"])
+    else if (resp.status === 500) window.confirm("Não foi possível registrar venda.")
+    window.location.assign(redirect);
 }

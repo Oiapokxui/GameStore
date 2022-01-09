@@ -19,7 +19,7 @@ public class Sale {
 
     @Id
     @Column(name="ID")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter @Setter
     private BigInteger id;
 
@@ -31,9 +31,9 @@ public class Sale {
     @Getter @Setter
     private String paymentMethod;
 
-    @Column(name="VALOR_DE_COMPRA")
-    @Getter @Setter
-    private double totalAmount;
+//    @Column(name="VALOR_DE_COMPRA")
+//    @Getter @Setter
+//    private double totalAmount;
 
     @Column(name="DESCONTO_OBTIDO_POR_PONTOS")
     @Getter @Setter
@@ -45,10 +45,12 @@ public class Sale {
 
     @ManyToOne
     @JoinColumn(name="CPF_CAIXA")
+    @Setter
     private Cashier cashier;
 
     @ManyToOne
     @JoinColumn(name="CPF_CLIENTE")
+    @Setter
     private Customer buyer;
 
     @OneToMany(mappedBy = "sale")
@@ -56,5 +58,9 @@ public class Sale {
 
     public Sale(final BigInteger id) {
         this.id = id;
+    }
+
+    public String getIdAsString(){
+        return String.valueOf(id);
     }
 }

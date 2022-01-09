@@ -3,6 +3,7 @@ package usp.each.bd1.gamestore.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -82,9 +83,9 @@ public class ItemController {
         return getItemsByName(itemName).stream().findFirst().orElse(null);
     }
 
-    @PostMapping()
-    public Item getAnyItemByBarcode(@RequestParam("barcode") String barcode) throws Exception {
-        return itemRepository.findById(barcode).orElseThrow(() -> new Exception("No item with barcode " + barcode +" found "));
+    @PostMapping("/unsold")
+    public Item getItemNotSoldYetByBarcode(@RequestParam("barcode") String barcode) throws Exception {
+        return itemRepository.findByIdWhereSaleIsNull(barcode).orElseThrow(() -> new Exception("No unsold item with barcode " + barcode +" found."));
     }
 
     public Iterable<Item> getItemsFromStorageObj(@RequestBody final Storage storage) {

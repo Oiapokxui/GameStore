@@ -7,19 +7,20 @@ async function addNewItem() {
     let itemsRow = itemsTable.rows;
     for (const row of Array.from(itemsRow)) {
         if (row.cells[0].innerText === barcode) {
-            /*document.getElementById('error_msg').innerText = */ console.log("Código de barras já adicionado");
+            window.confirm("Código de barras já adicionado");
+            return
         }
     }
 
-    let resp = await fetch("/item", {
+    let resp = await fetch("/item/unsold", {
         method: 'POST',
         body: form,
     })
-    if (resp.status === 200)  {
+    if (resp.status === 200) {
         await addItemToTable(itemsTable, await resp.json());
         document.getElementById("barcode").value = "";
     }
-    else /*document.getElementById("error_msg").innerText = */ console.log("Código de barras não está cadastrado")
+    else window.confirm("Produto já foi comprado ou não possui código de barras cadastrado.")
     updatePricesSum();
 }
 

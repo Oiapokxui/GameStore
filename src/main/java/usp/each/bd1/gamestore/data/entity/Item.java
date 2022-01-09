@@ -1,5 +1,7 @@
 package usp.each.bd1.gamestore.data.entity;
 
+import java.util.Optional;
+
 import javax.persistence.*;
 
 import lombok.Getter;
@@ -48,5 +50,11 @@ public class Item {
         else if(thisAsVideoGame != null) return "videoGame";
         else if(thisAsVideoGameConsole != null) return "console";
         else return "unassigned";
+    }
+
+    public String getSaleIdAsString(){
+        return Optional.ofNullable(getSale())
+                .flatMap(sale -> Optional.of(sale.getIdAsString()))
+                .orElse("");
     }
 }

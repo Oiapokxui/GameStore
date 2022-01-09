@@ -1,5 +1,6 @@
 package usp.each.bd1.gamestore.data.repository;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +30,9 @@ public interface ItemRepository extends CrudRepository<Item, String> {
     @Query(value = "select * from produto prod where prod.codigo_de_barras=:barcode", nativeQuery = true)
     Optional<Item> findById(@Param("barcode") String barcode);
 
+    @Query(value = "select * from produto prod where prod.codigo_de_barras=:barcode and prod.id_venda is null", nativeQuery = true)
+    Optional<Item> findByIdWhereSaleIsNull(@Param("barcode") String barcode);
+
     @Query(value = "select estoq.nome from produto prod inner join estoque estoq on estoq.nome = prod.nome_estoque where prod.codigo_de_barras=:barcode", nativeQuery = true)
     Optional<Storage> getStorageByBarcode(@Param("barcode") String barcode);
 
@@ -39,6 +43,11 @@ public interface ItemRepository extends CrudRepository<Item, String> {
     @Transactional
     @Query(value="update produto prod set nome_estoque=:new where prod.nome_estoque=:old", nativeQuery = true)
     void updateStorageName(@Param("new") String newStorageName, @Param("old") String oldStorageName);
+
+    @Modifying
+    @Transactional
+    @Query(value="update produto prod set id_venda=:new where prod.codigo_de_barras in :barcode", nativeQuery = true)
+    void updateSaleId(@Param("new") BigInteger newSaleId, @Param("barcode") List<String> barcodes);
 
     @Modifying
     @Transactional
