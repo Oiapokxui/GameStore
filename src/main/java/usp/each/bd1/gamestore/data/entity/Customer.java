@@ -35,7 +35,7 @@ public class Customer implements Serializable {
     @PrimaryKeyJoinColumn
     private List<Sale> purchases;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE)
     @PrimaryKeyJoinColumn
     private List<Assistance> assistances;
 
@@ -49,6 +49,10 @@ public class Customer implements Serializable {
 
     public String getName() {
         return thisPerson.getName();
+    }
+
+    public void setName(String name) {
+        thisPerson.setName(name);
     }
 
 }

@@ -1,7 +1,6 @@
 package usp.each.bd1.gamestore.web;
 
 import java.math.BigInteger;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,12 +47,12 @@ public class CustomerWebController {
         var customer = customerRepository.findById(cpf).orElseThrow(() -> new CustomerNotFound(""));
         model.addAttribute("customerName", customer.getName());
         model.addAttribute("customerCpf", customer.getCpf());
-        return "client-register";
+        return "employee-customer-edit";
     }
 
     @GetMapping("/register")
     public String getRegisterEmployeePage() {
-        return "manager-employee-register";
+        return "client-register";
     }
 
     private String translateTypeStringToPTBR(String type) {

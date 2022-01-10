@@ -19,8 +19,8 @@ public interface SaleRepository extends CrudRepository<Sale, BigInteger> {
     @Query(value="select * from venda ", nativeQuery = true)
     List<Sale> findAll();
 
-    @Query(value = "select * from atendente where cpf=:cpf", nativeQuery = true)
-    Optional<Sale> findById(@Param("cpf") String id);
+    @Query(value = "select * from venda where cpf_cliente=:cpf", nativeQuery = true)
+    List<Sale> findByCustomer(@Param("cpf") String id);
 
     @Transactional
     @Modifying
@@ -31,4 +31,9 @@ public interface SaleRepository extends CrudRepository<Sale, BigInteger> {
     @Modifying
     @Query(value = "delete from venda where cpf_caixa=:cpf", nativeQuery = true)
     void deleteByCashier(@Param("cpf") String id);
+
+    @Transactional
+    @Modifying
+    @Query(value = "delete from venda where cpf_cliente=:cpf", nativeQuery = true)
+    void deleteByCustomer(@Param("cpf") String id);
 }

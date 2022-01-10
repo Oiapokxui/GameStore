@@ -80,12 +80,12 @@ public class EmployeeController {
     }
 
     private void unassignSalesAssociate(String cpf) {
-        this.assistanceRepository.deleteAssistances(cpf);
+        this.assistanceRepository.deleteAssistancesBySalesAssociate(cpf);
         this.salesAssociateRepository.deleteById(cpf);
     }
 
     private void unassignTechnician(String cpf) {
-        this.repairRepository.deleteRepairs(cpf);
+        this.repairRepository.deleteRepairsByTechnician(cpf);
         this.technicianRepository.deleteById(cpf);
     }
 

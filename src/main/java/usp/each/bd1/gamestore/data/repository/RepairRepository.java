@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import usp.each.bd1.gamestore.data.entity.Repair;
 import usp.each.bd1.gamestore.data.entity.RepairId;
+import usp.each.bd1.gamestore.data.entity.RepairItem;
 
 @Repository
 public interface RepairRepository extends CrudRepository<Repair, RepairId> {
@@ -21,5 +22,10 @@ public interface RepairRepository extends CrudRepository<Repair, RepairId> {
     @Transactional
     @Modifying
     @Query(value = "delete from conserta where conserta.cpf_tecnico=:cpf", nativeQuery = true)
-    void deleteRepairs(@Param("cpf") String id);
+    void deleteRepairsByTechnician(@Param("cpf") String id);
+
+    @Transactional
+    @Modifying
+    @Query(value = "delete from conserta where conserta.id_item_reparo in :items", nativeQuery = true)
+    void deleteRepairsByRepairItem(@Param("items") List<Integer> items);
 }

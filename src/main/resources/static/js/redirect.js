@@ -54,6 +54,22 @@ async function createItem(){
         );
 }
 
+async function createCustomer(){
+    let form = document.getElementById("data");
+    let jason = await formDataToJson(form);
+    let redirect = "customer/storage";
+
+    postJsonToServer(jason, "storage/create")
+        .then( resp => resp.status)
+        .then(
+            (respStatus) => {
+                if (respStatus === 200) window.location.assign('/' + redirect)
+                else window.confirm("Não foi possível adicionar o estoque.")
+            },
+            (err) => console.log("sadliest:error")
+        );
+}
+
 async function createStorage(){
     let form = document.getElementById("data");
     let jason = await formDataToJson(form);
@@ -72,9 +88,9 @@ async function createStorage(){
 
 async function goToEditCustomerPage(){
     let row = event.target.parentNode.parentNode;
-    let barcode = await getFieldValueFromRow(row, "cpf");
+    let cpf = await getFieldValueFromRow(row, "cpf");
 
-    window.location.assign("/customer/edit?cpf=" + barcode);
+    window.location.assign("/customer/edit?cpf=" + cpf);
 }
 
 async function goToEditStoragePage(){
@@ -139,6 +155,26 @@ async function deleteEmployee(){
         );
 }
 
+async function deleteCustomer(){
+    let row = event.target.parentNode.parentNode;
+    let cpf = await getFieldValueFromRow(row, "cpf")
+    let confirma = confirm("Gostaria de deletar esse cliente?");
+    if(!confirma) return;
+
+    let form = new FormData();
+    form.append("cpf", cpf)
+
+    await postFormDataToServer(form, "customer/delete")
+        .then(
+            (resp) => {
+                if(resp.status === 200) window.location.reload()
+                else window.confirm("Não foi possível deletar esse cliente.")
+            },
+            (err) => console.log(err)
+        );
+    window.location.reload();
+}
+
 async function deleteItem(){
     let row = event.target.parentNode.parentNode;
     let form = await new FormData();
@@ -200,6 +236,23 @@ async function employeeJsonFromPage() {
         "type" : newType,
         "name" : employeeName,
     }
+}
+
+async function updateCustomer(){
+    let form = document.getElementById("data");
+    let customerJson = await formDataToJson(form);
+    let endpoint = "employee/customer";
+
+    postJsonToServer(customerJson, "customer/edit")
+        .then( resp => resp.status)
+        .then(
+            (statusCode) => {
+                if (statusCode === 200) window.location.assign('/' + endpoint)
+                else window.confirm("Não foi possível editar esse cliente.")
+                history.back();
+            },
+            (err) => console.log("sadly:error")
+        );
 }
 
 async function updateEmployee(){

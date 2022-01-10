@@ -30,6 +30,9 @@ public interface ItemRepository extends CrudRepository<Item, String> {
     @Query(value = "select * from produto prod where prod.codigo_de_barras=:barcode", nativeQuery = true)
     Optional<Item> findById(@Param("barcode") String barcode);
 
+    @Query(value = "select codigo_de_barras from produto prod where prod.id_venda in :vendas", nativeQuery = true)
+    List<String> findBySales(@Param("vendas") List<BigInteger> sales);
+
     @Query(value = "select * from produto prod where prod.codigo_de_barras=:barcode and prod.id_venda is null", nativeQuery = true)
     Optional<Item> findByIdWhereSaleIsNull(@Param("barcode") String barcode);
 
@@ -53,6 +56,11 @@ public interface ItemRepository extends CrudRepository<Item, String> {
     @Transactional
     @Query(value = "delete from produto prod where prod.codigo_de_barras=:barcode", nativeQuery = true)
     void deleteById(@Param("barcode") String barcode);
+
+    @Modifying
+    @Transactional
+    @Query(value = "delete from produto prod where prod.id_venda in :vendas", nativeQuery = true)
+    void deleteIfInList(@Param("vendas") List<BigInteger> sales);
 
     List<Item> findItemByStorageEquals(Storage hey);
 }

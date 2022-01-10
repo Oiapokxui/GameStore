@@ -22,4 +22,9 @@ public interface PurchaseRepository extends CrudRepository<Purchase, PurchaseId>
     @Modifying
     @Query(value = "delete from compra cmpr where cmpr.cpf_gerente=:cpf", nativeQuery = true)
     void deleteByManager(@Param("cpf") String id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "delete from compra prod where prod.codigo_de_barras in :barcodes", nativeQuery = true)
+    void deleteIfInList(@Param("barcodes") List<String> sales);
 }

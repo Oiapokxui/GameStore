@@ -10,21 +10,15 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import usp.each.bd1.gamestore.data.entity.Accessory;
 import usp.each.bd1.gamestore.data.entity.Assistance;
 import usp.each.bd1.gamestore.data.entity.AssistanceId;
 
 @Repository
-public interface AssistanceRepository extends CrudRepository<Assistance, AssistanceId> {
-    @Query(value="select * from atende", nativeQuery = true)
-    List<Assistance> findAll();
+public interface AccessoryRepository extends CrudRepository<Accessory, String> {
 
-    @Transactional
     @Modifying
-    @Query(value = "delete from atende atend where atend.cpf_atendente=:cpf", nativeQuery = true)
-    void deleteAssistancesBySalesAssociate(@Param("cpf") String id);
-
     @Transactional
-    @Modifying
-    @Query(value = "delete from atende atend where atend.cpf_cliente=:cpf", nativeQuery = true)
-    void deleteAssistancesByCustomer(@Param("cpf") String id);
+    @Query(value = "delete from acessorios prod where prod.codigo_de_barras in :barcodes", nativeQuery = true)
+    void deleteIfInList(@Param("barcodes") List<String> sales);
 }

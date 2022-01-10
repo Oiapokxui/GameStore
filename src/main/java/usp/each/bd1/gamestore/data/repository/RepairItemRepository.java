@@ -12,19 +12,16 @@ import org.springframework.stereotype.Repository;
 
 import usp.each.bd1.gamestore.data.entity.Assistance;
 import usp.each.bd1.gamestore.data.entity.AssistanceId;
+import usp.each.bd1.gamestore.data.entity.RepairItem;
 
 @Repository
-public interface AssistanceRepository extends CrudRepository<Assistance, AssistanceId> {
-    @Query(value="select * from atende", nativeQuery = true)
-    List<Assistance> findAll();
-
+public interface RepairItemRepository extends CrudRepository<RepairItem, Integer> {
     @Transactional
     @Modifying
-    @Query(value = "delete from atende atend where atend.cpf_atendente=:cpf", nativeQuery = true)
-    void deleteAssistancesBySalesAssociate(@Param("cpf") String id);
+    @Query(value = "delete from item_a_reparar where cpf_dono=:cpf", nativeQuery = true)
+    void deleteWhereCustomer(@Param("cpf") String id);
 
-    @Transactional
-    @Modifying
-    @Query(value = "delete from atende atend where atend.cpf_cliente=:cpf", nativeQuery = true)
-    void deleteAssistancesByCustomer(@Param("cpf") String id);
+    @Query(value = "select * from item_a_reparar where cpf_dono=:cpf", nativeQuery = true)
+    List<RepairItem> selectByCustomer(@Param("cpf") String id);
+
 }
